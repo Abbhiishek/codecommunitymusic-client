@@ -1,9 +1,0 @@
-version: '1'
-
-services:
-  app:
-    image: docker-nextjs-prod
-    build:
-      dockerfile: dockerfile.production
-    ports:
-      - '3000:3000'

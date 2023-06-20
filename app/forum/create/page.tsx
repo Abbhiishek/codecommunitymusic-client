@@ -10,6 +10,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
 import { Skills } from "@/config/skills";
 import { cn } from "@/lib/utils";
+import "@uiw/react-markdown-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
 import axios from "axios";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { nanoid } from "nanoid";

@@ -14,7 +14,7 @@ interface Props {
 }
 
 function ProfilePage({ params }: Props) {
-    const { data: user, isLoading, error } = useGetUser(params.username);
+    const { data: user, isLoading } = useGetUser(params.username);
     if (isLoading) {
         return (
             <div className="flex flex-col items-center justify-center w-full min-h-screen">
@@ -24,17 +24,13 @@ function ProfilePage({ params }: Props) {
     }
     if (!user) return (
         <div className="flex flex-col items-center justify-center w-full min-h-screen">
-            <span>Not Logged In</span>
+            <span>User Not Found</span>
         </div>
     )
 
-    if (error) {
-        // throw and error
-    }
     return (
         <div className="container min-h-screen mt-10">
             <HeaderBar user={user?.data!} />
-            {/* <ProfileSectionToggle username={user.data.username} /> */}
             <Tabs defaultValue="portfolio" className="w-full min-h-screen mt-10">
                 <TabsList className="grid w-full grid-cols-2 gap-3">
                     <TabsTrigger value="portfolio">Portfolio</TabsTrigger>

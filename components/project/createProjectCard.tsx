@@ -8,17 +8,21 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { TechStacks, Types } from "@/config/project"
+import { cn } from "@/lib/utils"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
-import { Loader2, PlusCircleIcon } from "lucide-react"
+import { Check, ChevronsUpDown, Loader2, PlusCircleIcon } from "lucide-react"
 import { nanoid } from 'nanoid'
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { z } from "zod"
+import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
-import { Checkbox } from "../ui/checkbox"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "../ui/command"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { ScrollArea } from "../ui/scroll-area"
 import { Separator } from "../ui/separator"
 import { Textarea } from "../ui/textarea"
@@ -94,36 +98,6 @@ const projectSchema = z.object({
 
 });
 
-
-const techStack = [
-    'React',
-    'Next.js',
-    'TailwindCSS',
-    'TypeScript',
-    'Node.js',
-    'Express',
-    'PostgreSQL',
-    'Redis',
-    'Prisma',
-    'GraphQL'
-]
-
-const typeofProject = [
-    'Open Source',
-    'Personal',
-    'Commercial',
-    'Non-Profit',
-    'Educational',
-    'Frontend',
-    'Backend',
-    'Fullstack',
-    'Mobile',
-    'Desktop',
-    'Web',
-    'API',
-    'CLI',
-    'Other'
-]
 
 
 function CreateProject() {
@@ -285,54 +259,124 @@ function CreateProject() {
                                         </div>
                                         <div className="mb-4">
                                             <Label htmlFor="description">Tech Stack</Label>
-                                            <div className="grid grid-cols-3 gap-5 mt-3">
-                                                {techStack.map((tech, index) => (
-                                                    <div className="flex items-center space-x-2" key={index}>
-                                                        <Checkbox
-                                                            checked={TechStack.includes(tech)}
-                                                            onClick={() => {
-                                                                if (TechStack.includes(tech)) {
-                                                                    setTechStack(TechStack.filter((t) => t !== tech))
-                                                                } else {
-                                                                    setTechStack([...TechStack, tech])
+                                            <Popover modal>
+                                                <PopoverTrigger asChild>
+                                                    <Button
+                                                        variant="outline"
+                                                        role="combobox"
+                                                        className={cn(
+                                                            "justify-between w-full h-full text-left font-normal p-2",
+                                                            !TechStack && "text-muted-foreground"
+                                                        )}
+                                                    >
+                                                        {TechStack
+                                                            ?
+                                                            <div className="flex flex-wrap gap-1">
+                                                                {TechStack.map((interest) => (
+                                                                    <Badge key={interest}>{interest}</Badge>
+                                                                ))
                                                                 }
-                                                            }}
-                                                            id={`createproject` + tech} />
-                                                        <label
-                                                            htmlFor={`createproject` + tech}
-                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                        >
-                                                            {tech}
-                                                        </label>
-                                                    </div>
-                                                ))}
-                                            </div>
+                                                            </div>
+
+                                                            : "Select Interest"}
+                                                        <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+                                                    </Button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="p-0 ">
+                                                    <Command>
+                                                        <CommandInput placeholder="Search ..." />
+                                                        <CommandEmpty>No Tags found.</CommandEmpty>
+                                                        <CommandGroup>
+                                                            <ScrollArea className="h-64">
+                                                                {TechStacks?.map((interest: string) => (
+                                                                    <CommandItem
+                                                                        value={interest}
+                                                                        key={interest}
+                                                                        onSelect={() => {
+                                                                            setTechStack((prev) =>
+                                                                                prev?.includes(interest)
+                                                                                    ? prev.filter((i) => i !== interest)
+                                                                                    : [...prev, interest]
+                                                                            );
+                                                                        }}
+                                                                    >
+                                                                        <Check
+                                                                            className={cn(
+                                                                                "mr-2 h-4 w-4",
+                                                                                TechStack?.includes(interest)
+                                                                                    ? "opacity-100"
+                                                                                    : "opacity-0"
+                                                                            )}
+                                                                        />
+                                                                        {interest}
+                                                                    </CommandItem>
+                                                                ))}
+                                                            </ScrollArea>
+                                                        </CommandGroup>
+                                                    </Command>
+                                                </PopoverContent>
+                                            </Popover>
                                         </div>
                                         <Separator className="my-4" />
                                         <div className="mb-4">
                                             <Label htmlFor="description">Type of Project</Label>
-                                            <div className="grid grid-cols-3 gap-5 mt-3">
-                                                {typeofProject.map((type, index) => (
-                                                    <div className="flex items-center space-x-2" key={index}>
-                                                        <Checkbox
-                                                            checked={Typeofproject.includes(type)}
-                                                            onClick={() => {
-                                                                if (Typeofproject.includes(type)) {
-                                                                    setTypeofproject(Typeofproject.filter((t) => t !== type))
-                                                                } else {
-                                                                    setTypeofproject([...Typeofproject, type])
+                                            <Popover modal>
+                                                <PopoverTrigger asChild>
+                                                    <Button
+                                                        variant="outline"
+                                                        role="combobox"
+                                                        className={cn(
+                                                            "justify-between w-full h-full text-left font-normal p-2",
+                                                            !Typeofproject && "text-muted-foreground"
+                                                        )}
+                                                    >
+                                                        {Typeofproject
+                                                            ?
+                                                            <div className="flex flex-wrap gap-1">
+                                                                {Typeofproject.map((interest) => (
+                                                                    <Badge key={interest}>{interest}</Badge>
+                                                                ))
                                                                 }
-                                                            }}
-                                                            id={`typeof` + type} />
-                                                        <label
-                                                            htmlFor={`typeof` + type}
-                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                        >
-                                                            {type}
-                                                        </label>
-                                                    </div>
-                                                ))}
-                                            </div>
+                                                            </div>
+
+                                                            : "Select Interest"}
+                                                        <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+                                                    </Button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="p-0 ">
+                                                    <Command>
+                                                        <CommandInput placeholder="Search ..." />
+                                                        <CommandEmpty>No Project Type found.</CommandEmpty>
+                                                        <CommandGroup>
+                                                            <ScrollArea className="h-64">
+                                                                {Types?.map((type: string) => (
+                                                                    <CommandItem
+                                                                        value={type}
+                                                                        key={type}
+                                                                        onSelect={() => {
+                                                                            setTypeofproject((prev) =>
+                                                                                prev?.includes(type)
+                                                                                    ? prev.filter((i) => i !== type)
+                                                                                    : [...prev, type]
+                                                                            );
+                                                                        }}
+                                                                    >
+                                                                        <Check
+                                                                            className={cn(
+                                                                                "mr-2 h-4 w-4",
+                                                                                Typeofproject?.includes(type)
+                                                                                    ? "opacity-100"
+                                                                                    : "opacity-0"
+                                                                            )}
+                                                                        />
+                                                                        {type}
+                                                                    </CommandItem>
+                                                                ))}
+                                                            </ScrollArea>
+                                                        </CommandGroup>
+                                                    </Command>
+                                                </PopoverContent>
+                                            </Popover>
                                         </div>
                                         <Separator className="my-4" />
                                         <div className="mb-4">

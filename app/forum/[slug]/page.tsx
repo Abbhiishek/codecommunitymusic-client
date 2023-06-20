@@ -2,18 +2,21 @@
 import ForumAnswer from "@/components/forum/forumAnswer";
 import AuthorHoverTag from "@/components/project/AuthorHoverTag";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "@/components/ui/use-toast";
 import { useGetForum } from "@/hooks/forum/get-forum";
+import { useGetSessionUser } from "@/hooks/user/get-current-user";
 import { Separator } from "@components/ui/separator";
 import "@uiw/react-markdown-preview/markdown.css";
 import "@uiw/react-md-editor/markdown-editor.css";
+import axios from "axios";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
-
 
 interface ForumSlugPageProps {
     params: {
@@ -23,7 +26,30 @@ interface ForumSlugPageProps {
 
 function ForumSlugPage({ params }: ForumSlugPageProps) {
 
-    const { data, isLoading } = useGetForum(params.slug);
+    const { data, isLoading, refetch } = useGetForum(params.slug);
+    const { data: user } = useGetSessionUser();
+
+
+
+
+    const handleSolved = async () => {
+        const res = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/forums/${data?.data.slug}`, {
+            is_solved: !data?.data.is_solved
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('session_token')}`
+            }
+        })
+
+        if (res.status === 200) {
+            await refetch();
+            toast({
+                title: 'Forum status changed',
+                description: 'Forum status changed successfully',
+            })
+        }
+    }
+
 
     if (isLoading && !data) {
         return (
@@ -74,6 +100,27 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
                         )
                     })}
                 </span>
+                {
+                    (data?.data.author == user?.data.username) ? (
+                        <div className="flex items-center justify-end gap-10 mt-2">
+                            {
+                                data?.data.is_solved ? (
+                                    <Button variant={'success'} onClick={() => {
+                                        handleSolved()
+                                    }}>
+                                        Solved
+                                    </Button>
+                                ) : (
+                                    <Button variant="destructive" onClick={() => {
+                                        handleSolved()
+                                    }}>
+                                        Unsolved
+                                    </Button>
+                                )
+                            }
+                        </div>
+                    ) : null
+                }
                 <Separator className="my-5" />
                 {
                     data?.data?.description === '' ? (

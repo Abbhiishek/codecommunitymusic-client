@@ -1,10 +1,10 @@
 {
-  "name": "moonshine",
+  "name": "codecommunitymusic",
   "version": "0.1.0",
   "private": true,
   "author": "Abhishek Kushwaha",
   "license": "MIT",
-  "homepage": "https://github.com/Abbhiishek/moonshine",
+  "homepage": "https://github.com/Abbhiishek/codecommunitymusic-client",
   "engines": {
     "node": ">=14.0.0",
     "yarn": ">=1.22.0",
@@ -16,9 +16,7 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "prepare": "husky install",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -89,19 +87,10 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
-    "@storybook/addon-essentials": "7.0.11",
-    "@storybook/addon-interactions": "7.0.11",
-    "@storybook/addon-links": "7.0.11",
-    "@storybook/blocks": "7.0.11",
-    "@storybook/nextjs": "7.0.11",
-    "@storybook/react": "7.0.11",
-    "@storybook/testing-library": "0.0.14-next.2",
     "@tanstack/eslint-plugin-query": "^4.29.9",
     "cross-env": "^7.0.3",
-    "eslint-plugin-storybook": "^0.6.12",
     "husky": "^8.0.3",
-    "prettier": "^2.8.8",
-    "storybook": "7.0.11"
+    "prettier": "^2.8.8"
   },
   "resolutions": {
     "react": "18.2.0"
