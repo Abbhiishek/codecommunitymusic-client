@@ -54,11 +54,13 @@ const ProjectCard = ({
                     }
                     {project.tags.length > 3 && <span className="px-2 py-1 mx-1 text-sm font-medium text-white bg-gray-800 rounded-full">+{project.tags.length - 3}</span>}
                 </span>
-                <Button
-                    variant={'secondary'}
-                    className="w-full rounded-full "
-                >View Project
-                </Button>
+                <span className="flex flex-col justify-end w-full h-full">
+                    <Button
+                        variant={'secondary'}
+                        className="w-full rounded-full "
+                    >View Project
+                    </Button>
+                </span>
             </div>
         </div>
     )

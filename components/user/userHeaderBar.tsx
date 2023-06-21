@@ -68,7 +68,7 @@ function HeaderBar(
     return (
         <div className='w-full'>
             <div className='relative flex items-center justify-between gap-3'>
-                <Image src={user.banner_pic} alt="cover image" className='w-full h-32 rounded-t-2xl lg:h-72'
+                <Image src={'/userbanner.jpg'} alt="cover image" className='w-full h-32 rounded-t-2xl lg:h-72'
                     width={1440} height={360}
                 />
             </div>
