@@ -6,6 +6,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import { Github, TwitterIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { Skeleton } from '../ui/skeleton'
 import LoginNavSection from './LoginNavSection'
 
 const navigation = [
@@ -65,7 +66,14 @@ function NavBar() {
                     <Link href="https://twitter.com/abbhishekstwt" legacyBehavior>
                         <TwitterIcon className="w-8 h-8 p-1 text-white rounded-full hover:text-black hover:bg-white" />
                     </Link>
-                    <LoginNavSection user={user} />
+                    {
+                        isLoading ?
+                            (<>
+                                <Skeleton className="w-8 h-8 rounded-full" />
+                            </>
+                            ) : <LoginNavSection user={user} />
+                    }
+
                 </div>
 
             </nav >
