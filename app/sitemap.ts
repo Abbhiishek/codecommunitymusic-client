@@ -1,32 +1,18 @@
-import axios from "axios";
 
 export default async function sitemap() {
-    const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
-    const allprojects = res.data;
 
-    const posts = allprojects.map((project: any) => ({
-        url: `/project/${project.id}`,
-        changefreq: "daily",
-        priority: 0.7,
-        lastModified: new Date(project.updatedAt),
-    }));
 
 
     const staticPages = [
         '',
-        'about',
-        'contact',
-        'projects',
+        'project',
         'blog',
-        'login',
-        'register',
-        'forgot-password',
-        'reset-password',
         'profile',
         'dashboard',
         'leaderboard',
-        'settings',
-        'marketplace'
+        'setting',
+        'marketplace',
+        'forum'
     ].map((url) => ({
         url: `/${url}`,
         changefreq: "daily",
@@ -36,9 +22,9 @@ export default async function sitemap() {
 
 
     return {
-        hostname: "https://www.example.com",
+        hostname: "https://codecommunitymusic.vercel.app",
         cacheTime: 600000,
         gzip: true,
-        urls: [...posts, ...staticPages],
+        urls: [...staticPages],
     };
 }
