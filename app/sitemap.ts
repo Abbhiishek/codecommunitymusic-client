@@ -1,30 +1,24 @@
+import { MetadataRoute } from 'next';
+export default function sitemap(): MetadataRoute.Sitemap {
 
-export default async function sitemap() {
+    return [
+        {
+            url: 'codecommunitymusic.vercel.app',
+            lastModified: new Date(),
+        },
+        {
+            url: 'codecommunitymusic.vercel.app/forum',
+            lastModified: new Date(),
+        },
+        {
+            url: 'codecommunitymusic.vercel.app/blog',
+            lastModified: new Date(),
+        },
+        {
+            url: 'codecommunitymusic.vercel.app/project',
+            lastModified: new Date(),
+        },
+    ]
 
 
-
-    const staticPages = [
-        '',
-        'project',
-        'blog',
-        'profile',
-        'dashboard',
-        'leaderboard',
-        'setting',
-        'marketplace',
-        'forum'
-    ].map((url) => ({
-        url: `/${url}`,
-        changefreq: "daily",
-        priority: 0.7,
-        lastModified: new Date(),
-    }));
-
-
-    return {
-        hostname: "https://codecommunitymusic.vercel.app",
-        cacheTime: 600000,
-        gzip: true,
-        urls: [...staticPages],
-    };
 }
