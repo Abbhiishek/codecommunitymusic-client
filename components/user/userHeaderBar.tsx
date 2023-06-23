@@ -3,7 +3,7 @@
 import { useGetSessionUser } from "@/hooks/user/get-current-user"
 import { User } from "@/types/User"
 import axios from "axios"
-import { Bookmark, CalendarDays, Globe, Loader2, LucideGithub, LucideLinkedin, LucideTwitter, MapPin } from "lucide-react"
+import { BadgeAlertIcon, Bookmark, CalendarDays, Globe, Loader2, LucideGithub, LucideLinkedin, LucideTwitter, MapPin, Verified } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
@@ -84,7 +84,9 @@ function HeaderBar(
                 <div className='flex flex-col justify-end w-full p-0 pt-6 lg:pl-6'>
                     <div className='flex flex-row items-center justify-center w-full gap-2 lg:justify-start'>
                         <h1 className='text-xl font-bold lg:text-4xl font-inter'>{user.display_name || user.first_name}</h1>
-                        <Badge variant={"default"}>Pro</Badge>
+                        <Badge variant={"default"} aria-label="verified">
+                            {user.is_verified ? <Verified className="text-green-700" /> : <BadgeAlertIcon />}
+                        </Badge>
                     </div>
                     <div className='flex flex-row items-center justify-center w-full gap-2 lg:justify-start'>
                         <p className='font-light'>@{user.username}</p>

@@ -1,7 +1,33 @@
+'use client'
 
-function Forums() {
+import ForumCard from "@/components/forum/forumCard";
+import { Separator } from "@/components/ui/separator";
+import { useGetForumsWithUsername } from "@/hooks/forum/get-forums-with-username";
+
+
+interface Props {
+    username: string
+}
+
+
+function Forums({ username }: Props) {
+
+    const { data: forums, isLoading } = useGetForumsWithUsername(username);
+
+    if (isLoading) return null;
+
     return (
-        <div>Forums</div>
+        <>
+            <h1 className="text-2xl font-semibold text-gray-700">Forums</h1>
+            <div className="grid grid-cols-1 gap-2 pb-10 lg:grid-cols-2">
+                <Separator className="col-span-1 my-4 lg:col-span-2" />
+                {
+                    forums?.data?.map((forum, index) => (
+                        <ForumCard key={index} forum={forum} />
+                    ))
+                }
+            </div>
+        </>
     )
 }
 

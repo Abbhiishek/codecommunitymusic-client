@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { IProjectData } from "@/types/Project";
 import Image from "next/image";
+import Link from "next/link";
 
 
 interface IProjectCardProps {
@@ -55,11 +56,13 @@ const ProjectCard = ({
                     {project.tags.length > 3 && <span className="px-2 py-1 mx-1 text-sm font-medium text-white bg-gray-800 rounded-full">+{project.tags.length - 3}</span>}
                 </span>
                 <span className="flex flex-col justify-end w-full h-full">
-                    <Button
-                        variant={'secondary'}
-                        className="w-full rounded-full "
-                    >View Project
-                    </Button>
+                    <Link href={`/project/${project.slug}`}>
+                        <Button
+                            variant={'secondary'}
+                            className="w-full rounded-full "
+                        >View Project
+                        </Button>
+                    </Link>
                 </span>
             </div>
         </div>
