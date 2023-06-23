@@ -6,7 +6,7 @@ const nextConfig = {
     images: {
         domains: ['images.unsplash.com',
             'res.cloudinary.com', 't4.ftcdn.net', 'i.ytimg.com', 'camo.githubusercontent.com',
-            'avatars.githubusercontent.com', 'img.freepik.com', 'github.com', 'pbs.twimg.com']
+            'avatars.githubusercontent.com', 'wiidgets.vercel.app', 'img.freepik.com', 'github.com', 'pbs.twimg.com']
     },
 };
 
