@@ -23,7 +23,7 @@ const AuthorHoverTag = ({ author }: { author: string }) => {
         <Link href={`/user/${author}`}>
             <HoverCard>
                 <HoverCardTrigger asChild>
-                    <Button variant="link" className="py-0 text-lg">@{data.data.username}</Button>
+                    <Button variant="link" className="px-0 py-0 lg:text-lg">@{data.data.username}</Button>
                 </HoverCardTrigger>
                 <HoverCardContent className="w-80">
                     <div className="flex justify-start space-x-4">

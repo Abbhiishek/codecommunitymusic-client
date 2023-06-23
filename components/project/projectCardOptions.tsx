@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Bookmark, Heart, Share2Icon } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { toast } from "../ui/use-toast";
 
@@ -18,12 +18,27 @@ interface IProjectCardProps {
 
 const ProjectCardOptions = ({ project }: IProjectCardProps) => {
     const { data: user } = useGetSessionUser();
-    const [likecount, setLikeCount] = useState<number>(project.upvotes.length)
+    const [likecount, setLikeCount] = useState<number>()
     const [isliking, setisliking] = useState<boolean>(false)
-    const [projectliked, setProjectLiked] = useState<boolean>(project.upvotes.includes(user?.data?.username))
-    const [bookmarkcount, setBookmarkCount] = useState<number>(project.bookmarks.length)
+    const [projectliked, setProjectLiked] = useState<boolean>()
+    const [bookmarkcount, setBookmarkCount] = useState<number>()
     const [isbookmarking, setisbookmarking] = useState<boolean>(false)
-    const [projectbookmarked, setProjectBookmarked] = useState<boolean>(project.bookmarks.includes(user?.data?.username))
+    const [projectbookmarked, setProjectBookmarked] = useState<boolean>()
+
+    useEffect(() => {
+        if (user) {
+            if (project.upvotes.includes(user.data.username)) {
+                setProjectLiked(true)
+            }
+            if (project.bookmarks.includes(user.data.username)) {
+                setProjectBookmarked(true)
+            }
+            setBookmarkCount(project.bookmarks.length)
+            setLikeCount(project.upvotes.length)
+        }
+    }, [])
+
+
     const likeprojectmutation = useMutation({
         mutationKey: ["like", project.slug, isliking, likecount, user?.data.username],
         mutationFn: likeProject,

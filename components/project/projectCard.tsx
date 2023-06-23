@@ -1,7 +1,6 @@
 'use client'
 
 import { IProjectData } from "@/types/Project";
-import Image from "next/image";
 import AuthorHoverTag from "./AuthorHoverTag";
 import ProjectCardOptions from "./projectCardOptions";
 
@@ -17,8 +16,8 @@ const ProjectCard = ({
         <div className="grid justify-start grid-cols-7 gap-3 border-2 rounded-lg shadow-2xl ">
             {/* <AspectRatio ratio={16 / 2}> */}
             <div className="flex items-center justify-center w-full h-full col-span-7 bg-cover rounded-lg lg:col-span-3 aspect-video">
-                <Image
-                    src={project.mainImage}
+                <img
+                    src={`https://wiidgets.vercel.app/api/banner?title=${project?.title}&bio=&twitter=${project?.author}`}
                     width={1000} height={100}
                     alt={project?.title} className="object-cover w-full h-full rounded-lg" />
                 {/* </AspectRatio> */}

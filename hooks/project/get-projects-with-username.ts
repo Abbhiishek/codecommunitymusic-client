@@ -8,7 +8,7 @@ import axios from "axios";
 // custom hook for getting projects
 export const useGetProjectWithUsername = (username: string) => {
     const { data, isLoading, isError, error, refetch } = useQuery({
-        queryKey: ["projects"],
+        queryKey: ["projects", username],
         queryFn: async () => {
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}/projects`, {
                 headers: {
