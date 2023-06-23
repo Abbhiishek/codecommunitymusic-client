@@ -25,16 +25,24 @@ function ForumCard(
         <Link href={`/forum/${forum.slug}`}>
             <div className="flex flex-col w-full gap-3 p-5 border-4 rounded-xl">
                 <div className="flex flex-col w-full gap-3 lg:flex-row">
-                    <div className="flex items-center w-full gap-2">
-                        <Avatar
-                            className="w-10 h-10"
-                        >
-                            <AvatarImage src={user?.data.profile_pic} alt={user?.data.username} />
-                            <AvatarFallback>{user?.data.username}</AvatarFallback>
-                        </Avatar>
-                        <span className="lg:text-lg">
-                            @{forum.author}
-                        </span>
+                    <div className="w-full">
+                        <Link href={`/user/${user?.data.username}`} className="flex items-center w-full gap-2">
+                            <Avatar
+                                className="w-10 h-10"
+                            >
+                                <AvatarImage src={user?.data.profile_pic} alt={user?.data.username} />
+                                <AvatarFallback>{user?.data.username}</AvatarFallback>
+                            </Avatar>
+
+                            <span className="flex flex-col lg:text-lg">
+                                <span>
+                                    {user?.data.display_name}
+                                </span>
+                                <span className="text-sm font-extralight">
+                                    @{user?.data.username}
+                                </span>
+                            </span>
+                        </Link>
                     </div>
                     <span className="flex items-center justify-end w-full gap-4">
                         {
