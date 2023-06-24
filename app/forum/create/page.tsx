@@ -9,11 +9,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
 import { Skills } from "@/config/skills";
+import { useGetSessionUser } from "@/hooks/user/get-current-user";
 import { cn } from "@/lib/utils";
 import "@uiw/react-markdown-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import axios from "axios";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Loader } from "lucide-react";
 import { nanoid } from "nanoid";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
@@ -44,6 +45,7 @@ const MarkdownEditor = dynamic(
 
 function Page() {
     const router = useRouter()
+    const { data, isLoading: loading } = useGetSessionUser()
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState("**Describe how devs can assist you**")
     const [tags, setTags] = useState<string[]>([])
@@ -52,6 +54,21 @@ function Page() {
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
 
+    if (loading) return (
+        <div>
+            <div className="flex items-center justify-center w-full h-screen">
+                <Loader size={50} className="animate-spin" />
+            </div>
+        </div>
+    )
+
+    if (!data) {
+        toast({
+            title: "Error",
+            description: "You must be logged in to create a forum",
+        })
+        router.push("/login")
+    }
 
 
     const handleSubmit = async () => {

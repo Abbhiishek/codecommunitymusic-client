@@ -18,7 +18,7 @@ export const useGetUserTodos = (username: string) => {
             });
             return data as TodoData;
         },
-        cacheTime: 0,
+        cacheTime: 60,
     })
     return { data, error, isLoading, refetch }
 }

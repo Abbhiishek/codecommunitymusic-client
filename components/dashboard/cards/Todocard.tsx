@@ -94,13 +94,11 @@ function Todocard({ username }: { username: string }) {
                 </div>
             </CardHeader>
             <CardContent>
-                {isLoading && <div>
-                    <Loader2 size={24} className="animate-spin" />
-                </div>}
+
                 <h1>Your Todos</h1>
                 <p>click on text to mark the task done ✅</p>
                 <ScrollArea className="p-2 ">
-                    {
+                    {todos &&
                         todos?.data?.map((todo) => {
                             return (
                                 <TodoComponent key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo} refetch={refetch} />
@@ -108,6 +106,9 @@ function Todocard({ username }: { username: string }) {
                         }
                         )
                     }
+                    {isLoading && <div>
+                        <Loader2 size={24} className="animate-spin" />
+                    </div>}
                 </ScrollArea>
             </CardContent>
         </Card>

@@ -21,7 +21,7 @@ export const useGetSessionUser = () => {
             });
             return data as UserData;
         },
-        cacheTime: 0
+        cacheTime: 1000,
     })
     return { data, error, isLoading, refetch }
 }
