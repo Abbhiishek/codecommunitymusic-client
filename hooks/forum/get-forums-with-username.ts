@@ -8,7 +8,7 @@ import axios from "axios";
 // custom hook for getting projects
 export const useGetForumsWithUsername = (username: string) => {
     const { data, isLoading, isError, error, refetch } = useQuery({
-        queryKey: ["forums", username],
+        queryKey: ["all forums", username],
         queryFn: async () => {
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}/forums`, {
                 headers: {
@@ -18,7 +18,6 @@ export const useGetForumsWithUsername = (username: string) => {
             );
             return data as IForums;
         },
-        cacheTime: 0,
     })
     return { data, isLoading, isError, error, refetch }
 }
