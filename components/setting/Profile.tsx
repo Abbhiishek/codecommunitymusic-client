@@ -17,7 +17,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react"
 
 import {
     Popover,
@@ -85,7 +85,7 @@ function Profile({ user }: { user: UserData }) {
     const [linkedin, setLinkedin] = useState<string>(user?.data.linkedin || "")
     const [github, setGithub] = useState<string>(user?.data.github || "")
     const [website, setWebsite] = useState<string>(user?.data.website || "")
-
+    const [saving, setSaving] = useState<boolean>(false)
     const [madeChanges, setMadeChanges] = useState<boolean>(false)
 
     useEffect(() => {
@@ -142,6 +142,8 @@ function Profile({ user }: { user: UserData }) {
             return
         }
 
+        setSaving(true)
+
         const res = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/updateuser`, {
             ...user?.data,
             first_name,
@@ -167,6 +169,8 @@ function Profile({ user }: { user: UserData }) {
                 title: "Success",
                 description: "Your profile has been updated",
             })
+            setMadeChanges(false)
+            setSaving(false)
         }
 
 
@@ -428,9 +432,12 @@ function Profile({ user }: { user: UserData }) {
                 <Button
                     variant={"default"}
                     onClick={saveUserDetails}
-                    disabled={!madeChanges}
+                    disabled={!madeChanges || saving}
                 >
                     Save Changes
+                    {
+                        saving && <Loader2 className="ml-2 animate-spin" />
+                    }
                 </Button>
             </CardFooter>
         </Card >

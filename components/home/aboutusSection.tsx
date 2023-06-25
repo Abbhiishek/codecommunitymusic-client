@@ -5,8 +5,8 @@ const links = [
     { name: 'Meet our leadership', href: '#' },
 ]
 const stats = [
-    { name: 'Users', value: '12k+' },
-    { name: 'College', value: '300+' },
+    { name: 'Users', value: '10' },
+    { name: 'College', value: '4' },
     { name: 'Core Team members', value: '5' },
     { name: 'Projects', value: '100' },
 ]
