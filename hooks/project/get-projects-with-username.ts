@@ -1,12 +1,13 @@
 'use client'
+import { queryClient } from "@/app/ReactQueryProvider";
 import { IProjectData } from "@/types/Project";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-
-
-// custom hook for getting projects
 export const useGetProjectWithUsername = (username: string) => {
+
+    const chached_projects = queryClient.getQueryData(["projects", username]) as IProjectData[];
+
     const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ["projects", username],
         queryFn: async () => {
@@ -19,7 +20,12 @@ export const useGetProjectWithUsername = (username: string) => {
             );
             return data.data as IProjectData[];
         },
+        cacheTime: 60 * 60 * 5,
     })
+
+    if (chached_projects) {
+        return { data: chached_projects, isLoading: false, isError: false, error: null, refetch };
+    }
     return { data, isLoading, isError, error, refetch }
 }
 

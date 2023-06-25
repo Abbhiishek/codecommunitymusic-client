@@ -6,7 +6,6 @@ import axios from "axios";
 
 export const useGetProgrammingQuote = () => {
 
-
     const { data, isLoading, error, refetch } = useQuery({
         queryKey: ["quote", "daily"],
         queryFn: async () => {
@@ -21,7 +20,8 @@ export const useGetProgrammingQuote = () => {
             });
             return data as QuoteData;
         },
-        cacheTime: 1000 * 60 * 60 * 24, // 24 hours
+        cacheTime: 60 * 60 * 24, // 24 hours
+        staleTime: 1000 * 60 * 60 * 24, // 24 hours
     })
     return { data, error, isLoading, refetch }
 }

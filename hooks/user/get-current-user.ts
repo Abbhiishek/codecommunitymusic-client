@@ -1,11 +1,12 @@
 'use client'
+import { queryClient } from "@/app/ReactQueryProvider";
 import { UserData } from "@/types/User";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-
 export const useGetSessionUser = () => {
 
+    const user_cache = queryClient.getQueryData(["user", "current"]) as UserData;
 
     const { data, isLoading, error, refetch } = useQuery({
         queryKey: ["user", "current"],
@@ -21,9 +22,14 @@ export const useGetSessionUser = () => {
             });
             return data as UserData;
         },
+        cacheTime: 60 * 60 * 10 // 10 minutes
     });
 
-    return { data, error, isLoading, refetch }
+    if (user_cache) {
+        return { data: user_cache, isLoading: false, refetch, error: null };
+    }
+
+    return { data, isLoading, refetch, error }
 }
 
 

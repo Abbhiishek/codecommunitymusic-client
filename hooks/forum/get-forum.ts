@@ -1,14 +1,15 @@
-'use client'
-
-
+import { queryClient } from "@/app/ReactQueryProvider";
 import { IForum } from "@/types/Forum";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 
 
-// custom hook for getting all forums
+
 export const useGetForum = (slug: string) => {
+
+    const cached_forum = queryClient.getQueryData(["forum", slug]) as IForum;
+
     const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ["forum", slug],
         queryFn: async () => {
@@ -19,8 +20,13 @@ export const useGetForum = (slug: string) => {
             });
             return data as IForum;
         },
-        cacheTime: 0,
+        cacheTime: 60 * 60 * 30,
     })
+
+    if (cached_forum) {
+        return { data: cached_forum, isLoading: false, isError: false, error: null, refetch };
+    }
+
     return { data, isLoading, isError, error, refetch }
 }
 

@@ -1,14 +1,14 @@
-'use client'
-
-
+import { queryClient } from "@/app/ReactQueryProvider";
 import { IChat } from "@/types/Forum";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 
 
-// custom hook for getting all forums
+
 export const useGetChat = (forum: string) => {
+
+    const cached_chat = queryClient.getQueryData(["get chat of ", forum]) as IChat[];
     const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ["get chat of ", forum],
         queryFn: async () => {
@@ -19,8 +19,11 @@ export const useGetChat = (forum: string) => {
             });
             return data.data as IChat[];
         },
-        cacheTime: 0,
+        cacheTime: 60 * 60 * 30,
     })
+    if (cached_chat) {
+        return { data: cached_chat, isLoading: false, isError: false, error: null, refetch };
+    }
     return { data, isLoading, isError, error, refetch }
 }
 
