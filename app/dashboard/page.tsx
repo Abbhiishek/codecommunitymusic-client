@@ -15,7 +15,14 @@ function Dashboard() {
 
     if (isLoading) {
         return (
-            <Skeleton />
+            <div className="w-full h-screen">
+                <div className="grid h-full grid-cols-12 gap-2 grid-rows-10 lg:gap-10 lg:p-5">
+                    <Skeleton className="w-full h-full col-span-12 lg:col-span-7" />
+                    <Skeleton className="w-full col-span-12 row-span-2 lg:col-span-5" />
+                    <Skeleton className="w-full col-span-12 row-span-3 lg:col-span-7" />
+                    <Skeleton className="w-full col-span-12 row-span-1 lg:col-span-5" />
+                </div>
+            </div>
         )
     }
 
