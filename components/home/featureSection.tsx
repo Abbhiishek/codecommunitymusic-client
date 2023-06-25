@@ -1,5 +1,6 @@
 import { FolderMinusIcon } from '@heroicons/react/20/solid'
 import { WarehouseIcon, WorkflowIcon } from 'lucide-react'
+import Image from 'next/image'
 const features = [
     {
         name: 'Projects',
@@ -47,8 +48,8 @@ export default function FeatureSection() {
                         </div>
                     </div>
                     <div className='shadow-2xl shadow-indigo-800 bg-none rounded-xl'>
-                        <img
-                            src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
+                        <Image
+                            src="/projects.png"
                             alt="Product screenshot"
                             className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"
                             width={2432}
