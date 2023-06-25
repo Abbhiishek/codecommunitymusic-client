@@ -11,6 +11,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/components/ui/use-toast";
 import { useGetUserTodos } from "@/hooks/todos/get-todos";
 import axios from "axios";
@@ -106,9 +107,9 @@ function Todocard({ username }: { username: string }) {
                         }
                         )
                     }
-                    {isLoading && <div>
-                        <Loader2 size={24} className="animate-spin" />
-                    </div>}
+                    {
+                        isLoading && <Skeleton className="w-full h-10" />
+                    }
                 </ScrollArea>
             </CardContent>
         </Card>

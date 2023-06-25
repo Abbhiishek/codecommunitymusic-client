@@ -13,14 +13,14 @@ import Link from "next/link";
 import { Separator } from "../ui/separator";
 
 
-
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 const DashboardNav = [
-    { name: "Dashboard", icon: <LayoutDashboardIcon className="w-5 h-5" />, Link: "/dashboard" },
-    { name: "My Projects", icon: <WebhookIcon className="w-5 h-5" />, Link: "/dashboard/project" },
-    { name: "My Forums", icon: <GitPullRequest className="w-5 h-5" />, Link: "/dashboard/forum" },
-    { name: "My Blogs", icon: <BookIcon className="w-5 h-5" />, Link: "/dashboard/blog" }
+    { name: "Dashboard", icon: <LayoutDashboardIcon className="w-5 h-5" />, Link: "/dashboard", urlname: "dashboard" },
+    { name: "My Projects", icon: <WebhookIcon className="w-5 h-5" />, Link: "/dashboard/project", urlname: "project" },
+    { name: "My Forums", icon: <GitPullRequest className="w-5 h-5" />, Link: "/dashboard/forum", urlname: "forum" },
+    { name: "My Blogs", icon: <BookIcon className="w-5 h-5" />, Link: "/dashboard/blog", urlname: "blog" }
 ]
 
 const DashboardSecondaryNav = [
@@ -33,8 +33,12 @@ const DashboardSecondaryNav = [
 
 
 function SideNavBar() {
+    const pathname = usePathname();
+    const [active, setActive] = useState(usePathname().split('/').pop());
 
-    const [active, setActive] = useState("Dashboard");
+    useEffect(() => {
+        setActive(pathname.split('/').pop());
+    }, [pathname])
 
     return (
         <>
@@ -44,8 +48,8 @@ function SideNavBar() {
                         DashboardNav.map((nav, index) => (
                             <Link key={index} href={nav.Link} className="w-full">
                                 <Button key={index}
-                                    onClick={() => setActive(nav.name)}
-                                    variant={active === nav.name ? "default" : "outline"}
+                                    onClick={() => setActive(nav.urlname)}
+                                    variant={active === nav.urlname ? "default" : "outline"}
                                     className={`flex items-center justify-start w-full gap-2 
                                     `}>
                                     {nav.icon}
