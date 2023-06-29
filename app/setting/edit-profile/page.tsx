@@ -1,11 +1,11 @@
 "use client"
 
-import Account from "@/components/setting/Account";
+import Profile from "@/components/setting/Profile";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetSessionUser } from "@/hooks/user/get-current-user";
 
 
-function Setting() {
+function EditProfile() {
     const { data, isLoading } = useGetSessionUser();
     if (isLoading) return (
         <div className="flex justify-center w-full">
@@ -14,8 +14,8 @@ function Setting() {
     )
 
     return (
-        <Account user={data!} />
+        <Profile user={data!} />
     )
 }
 
-export default Setting
+export default EditProfile
