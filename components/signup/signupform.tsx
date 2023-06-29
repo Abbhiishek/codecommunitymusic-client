@@ -98,7 +98,13 @@ export default function SignUpForm() {
                 })
                 if (rememberMe) {
                     localStorage.setItem("session_token", data.session_token);
-                    router.push("/profile");
+                    router.refresh();
+                    router.push("/setting/edit-profile");
+                    toast({
+                        title: `Complete your profile`,
+                        defaultChecked: true,
+                        description: "Please complete your profile",
+                    })
                 }
 
             }

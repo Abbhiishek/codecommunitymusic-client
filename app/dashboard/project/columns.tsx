@@ -72,11 +72,13 @@ export const columns: ColumnDef<IProjectData>[] = [
         header: "Github Repo",
         cell: ({ row }) => {
             return (
-                <Button variant="ghost">
-                    <Link href={row.original.githubLink} target="_blank">
+
+                <Link href={row.original.githubLink} target="_blank" passHref legacyBehavior>
+                    <Button variant="ghost">
                         <GithubIcon className="w-4 h-4" />
-                    </Link>
-                </Button>
+                    </Button>
+                </Link>
+
             )
         },
     },
