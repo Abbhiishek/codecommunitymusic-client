@@ -81,20 +81,20 @@ const projectSchema = z.object({
     }).url({
         message: "Githublink must be a valid URL"
     }),
-    bannerimage: z.string({
-        description: "Bannerimage is required",
-        required_error: "Bannerimage is required",
-        invalid_type_error: "Bannerimage is must be string",
-    }).url({
-        message: "Bannerimage must be a valid URL"
-    }),
-    projectimage: z.string({
-        description: "Projectimage is required",
-        required_error: "Projectimage is required",
-        invalid_type_error: "Projectimage is must be string",
-    }).url({
-        message: "Projectimage must be a valid URL"
-    }),
+    // bannerimage: z.string({
+    //     description: "Bannerimage is required",
+    //     required_error: "Bannerimage is required",
+    //     invalid_type_error: "Bannerimage is must be string",
+    // }).url({
+    //     message: "Bannerimage must be a valid URL"
+    // }),
+    // projectimage: z.string({
+    //     description: "Projectimage is required",
+    //     required_error: "Projectimage is required",
+    //     invalid_type_error: "Projectimage is must be string",
+    // }).url({
+    //     message: "Projectimage must be a valid URL"
+    // }),
 
 });
 
@@ -109,8 +109,8 @@ function CreateProject() {
     const [Typeofproject, setTypeofproject] = useState<string[]>([])
     const [hostedlink, setHostedlink] = useState("")
     const [githublink, setGithublink] = useState("")
-    const [bannerimage, setBannerimage] = useState("")
-    const [projectimage, setProjectimage] = useState("")
+    // const [bannerimage, setBannerimage] = useState("")
+    // const [projectimage, setProjectimage] = useState("")
     const [formerror, setFormerror] = useState("")
     const [loading, setLoading] = useState(false)
 
@@ -136,8 +136,8 @@ function CreateProject() {
                     slug,
                     demoLink: hostedlink,
                     githubLink: githublink,
-                    bannerImage: bannerimage,
-                    mainImage: projectimage,
+                    // bannerImage: bannerimage,
+                    // mainImage: projectimage,
                 },
                 {
                     headers: {
@@ -184,8 +184,8 @@ function CreateProject() {
             Typeofproject,
             hostedlink,
             githublink,
-            bannerimage,
-            projectimage,
+            // bannerimage,
+            // projectimage,
         })
 
         if (!result.success) {
@@ -399,7 +399,7 @@ function CreateProject() {
                                                 onChange={(e) => setHostedlink(e.target.value)}
                                             />
                                         </div>
-                                        <div className="mb-4">
+                                        {/* <div className="mb-4">
                                             <Label htmlFor="projectimage">Project Main Image</Label>
                                             <Input
                                                 type="url"
@@ -418,7 +418,7 @@ function CreateProject() {
                                                 id="projectbannerimage"
                                                 onChange={(e) => setBannerimage(e.target.value)}
                                             />
-                                        </div>
+                                        </div> */}
                                     </form>
                                 </div>
                             </ScrollArea>

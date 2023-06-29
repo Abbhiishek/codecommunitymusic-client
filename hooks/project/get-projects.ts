@@ -9,10 +9,9 @@ export const useGetProjects = () => {
     const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ["all-projects"],
         queryFn: async () => {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getallprojects`);
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`);
             return data.data as IProjectData[];
         },
-        cacheTime: 60 * 60 * 30, // 30 minutes
     })
     if (cached_projects) {
         return { data: cached_projects, isLoading: false, isError: false, error: null, refetch };

@@ -22,7 +22,7 @@ export const useGetSessionUser = () => {
             });
             return data as UserData;
         },
-        cacheTime: 60 * 60 * 10 // 10 minutes
+        cacheTime: 60 * 60 * 60 * 1 // 1 hour
     });
 
     if (user_cache) {

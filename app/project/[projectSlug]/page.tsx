@@ -10,7 +10,7 @@ interface ProjectProps {
 }
 
 export async function generateStaticParams() {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getallprojects`)
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
     return data.data.map((project: any) => ({
         params: {
             projectSlug: project.slug
@@ -19,19 +19,28 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ProjectProps) {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getallprojects`)
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
     const project: IProjectData = data.data.find((project: any) => project.slug === params.projectSlug)
     return {
         title: project?.title,
         description: project?.subtitle,
-        type: "project",
+        type: "article",
         keywords: [project?.title, project?.subtitle, project?.description, project?.tags, project?.author],
         openGraph: {
             title: project?.title,
             description: project?.subtitle,
+            url: `https://codecommunitymusic.vercel.app/project/${project?.slug}`,
             type: "article",
             publishedTime: project?.created_at,
             authors: [project?.author],
+            images: [
+                {
+                    url: `https://wiidgets.vercel.app/api/banner?title=${project.title}&bio=${project.subtitle}&twitter=${project.author}`,
+                    width: 800,
+                    height: 600,
+                    alt: project?.title,
+                },
+            ],
         },
     }
 }

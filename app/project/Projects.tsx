@@ -62,7 +62,7 @@ function Projects() {
                                 placeholder="Search Projects"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="w-full "
+                                className="w-full lg:w-1/2"
                             />
                             {
                                 user?.data.is_verified ?

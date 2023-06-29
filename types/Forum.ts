@@ -1,20 +1,30 @@
 export interface IForumData {
+    slug: string;
     title: string;
     description: string;
     created_at: string;
-    author: string;
-    chat: IChat[];
-    upvotes: string[];
+    updated_at: string;
     tags: string[];
     type: string;
-    slug: string;
     is_closed: boolean;
     is_solved: boolean;
+    author: ShortUser;
+    upvotes: ShortUser[];
 }
+
+
+interface ShortUser {
+    username: string;
+    display_name: string;
+    profile_pic: string;
+    created_at: string;
+    karma: number;
+}
+
 
 export interface IForum {
     data: IForumData;
-    chat: IChat[];
+    comments: IChat[];
     message: string;
 }
 
@@ -25,9 +35,11 @@ export interface IForums {
 
 
 export interface IChat {
+    id: number;
     content: string;
-    created_at: Date;
-    author: string;
-    upvotes: string[];
-    reply: IChat[];
+    created_at: string;
+    updated_at: string;
+    author: ShortUser;
+    reply_to: number | null;
+    replies: IChat[];
 }
