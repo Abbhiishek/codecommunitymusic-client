@@ -1,6 +1,5 @@
 'use client';
 
-
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -19,11 +18,8 @@ import axios from "axios";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
-
-
-
 
 const loginSchema = z.object({
     email: z.string({
@@ -43,7 +39,6 @@ const loginSchema = z.object({
 });
 
 export default function LoginForm() {
-    // const { data: session } = useSession();
     const { refetch } = useGetSessionUser();
     const router = useRouter();
     const [email, setEmail] = useState("");
@@ -52,13 +47,11 @@ export default function LoginForm() {
     const [rememberMe, setRememberMe] = useState(false);
     const [loging, setLoging] = useState(false);
 
-    const session_token = typeof window !== "undefined" ? localStorage.getItem("session_token") : null;
 
-    useEffect(() => {
-        if (session_token) {
-            router.push("/");
-        }
-    }, [])
+    const session_token = localStorage.getItem("session_token");
+    if (session_token) {
+        router.push("/dashboard");
+    }
 
 
     const loginMutationwithusername = useMutation({
@@ -74,7 +67,6 @@ export default function LoginForm() {
                 username,
                 password
             });
-            console.log("The login mutation ", data);
             if (data.status === "success") {
                 await refetch()
                 setLoging(false);
@@ -83,6 +75,8 @@ export default function LoginForm() {
                     description: "You are ready to go!",
                 })
                 localStorage.setItem("session_token", data.session_token);
+                router.refresh();
+                window.location.reload();
                 router.push("/dashboard");
             }
         } catch (error: any) {
@@ -201,8 +195,9 @@ export default function LoginForm() {
                 </CardContent>
                 <CardFooter>
                     <div className="flex flex-col items-center justify-center w-full gap-5">
-                        {/* <GithubLoginBtn />
-                        <GoogleLoginBtn /> */}
+                        {/* <GithubLoginBtn /> */}
+                        {/* <GoogleLoginBtn /> */}
+                        <h1>On the way</h1>
                     </div>
                 </CardFooter>
             </Card>
