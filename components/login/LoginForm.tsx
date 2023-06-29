@@ -48,7 +48,7 @@ export default function LoginForm() {
     const [loging, setLoging] = useState(false);
 
 
-    const session_token = localStorage.getItem("session_token");
+    const session_token = typeof window !== 'undefined' ? localStorage.getItem("session_token") : null;
     if (session_token) {
         router.push("/dashboard");
     }
