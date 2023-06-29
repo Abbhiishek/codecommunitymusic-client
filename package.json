@@ -52,6 +52,7 @@
     "@types/react-syntax-highlighter": "^15.5.7",
     "@uiw/react-markdown-editor": "^5.11.1",
     "@uiw/react-md-editor": "^3.23.3",
+    "@uploadthing/react": "^5.1.0",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "babel-plugin-transform-remove-imports": "^1.7.0",
@@ -76,6 +77,7 @@
     "react": "18.2.0",
     "react-day-picker": "^8.7.1",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.44.3",
     "react-markdown": "^8.0.7",
     "react-syntax-highlighter": "^15.5.0",
@@ -86,6 +88,7 @@
     "tailwindcss": "3.3.2",
     "tailwindcss-animate": "^1.0.6",
     "typescript": "5.0.4",
+    "uploadthing": "^5.1.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
