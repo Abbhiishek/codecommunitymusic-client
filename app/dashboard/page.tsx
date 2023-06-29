@@ -25,9 +25,6 @@ function Dashboard() {
             </div>
         )
     }
-
-
-
     if (!data && !isLoading) {
         router.push("/login")
     }
