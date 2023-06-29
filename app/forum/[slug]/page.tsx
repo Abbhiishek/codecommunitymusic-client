@@ -11,8 +11,9 @@ import { Separator } from "@components/ui/separator";
 import "@uiw/react-markdown-preview/markdown.css";
 import "@uiw/react-md-editor/markdown-editor.css";
 import axios from "axios";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -28,12 +29,14 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
 
     const { data, isLoading, refetch } = useGetForum(params.slug);
     const { data: user } = useGetSessionUser();
+    const [ischanging, setIsChanging] = useState(false);
 
 
 
 
     const handleSolved = async () => {
-        const res = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/forums/${data?.data.slug}`, {
+        setIsChanging(true);
+        const res = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/update/forums/${data?.data.slug}`, {
             is_solved: !data?.data.is_solved
         }, {
             headers: {
@@ -48,6 +51,7 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
                 description: 'Forum status changed successfully',
             })
         }
+        setIsChanging(false);
     }
 
 
@@ -84,7 +88,7 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
                 </h1>
                 <span className="text-lg">
                     Asked by
-                    <AuthorHoverTag author={data?.data?.author!} /> on {" "}
+                    <AuthorHoverTag author={data?.data.author.username!} /> on {" "}
                     {
                         new Date(data?.data?.created_at!).getUTCDate() + '/' + new Date(data?.data?.created_at!).getUTCMonth() + '/' + new Date(data?.data?.created_at!).getUTCFullYear()
                     }
@@ -101,19 +105,22 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
                     })}
                 </span>
                 {
-                    (data?.data.author == user?.data.username) ? (
+                    (data?.data.author.username == user?.data.username) ? (
                         <div className="flex items-center justify-end gap-10 mt-2">
+                            <span className="font-light text-gray-400">Toggle the status by clicking the button</span>
                             {
                                 data?.data.is_solved ? (
                                     <Button variant={'success'} onClick={() => {
                                         handleSolved()
                                     }}>
+                                        {ischanging && <Loader2 className="animate-spin" />}
                                         Solved
                                     </Button>
                                 ) : (
                                     <Button variant="destructive" onClick={() => {
                                         handleSolved()
                                     }}>
+                                        {ischanging && <Loader2 className="animate-spin" />}
                                         Unsolved
                                     </Button>
                                 )
@@ -158,7 +165,7 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
 
             <div className="pb-10 my-10">
                 <Separator className="my-5" />
-                <ForumAnswer forum={data?.data.slug!} />
+                <ForumAnswer comments={data?.comments!} forum={data?.data.slug!} refetch={refetch} user={user} />
             </div>
         </div>
     )

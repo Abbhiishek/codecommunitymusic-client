@@ -20,7 +20,7 @@ export const useGetForum = (slug: string) => {
             });
             return data as IForum;
         },
-        cacheTime: 60 * 60 * 30,
+        cacheTime: 60 * 60 * 30, // 30 minutes
     })
 
     if (cached_forum) {

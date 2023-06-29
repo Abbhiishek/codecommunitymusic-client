@@ -1,6 +1,6 @@
 'use client'
 
-import { useGetChat } from "@/hooks/chat/get-chat";
+import { IChat } from "@/types/Forum";
 import "@uiw/react-markdown-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import axios from "axios";
@@ -23,13 +23,10 @@ const MarkdownEditor = dynamic(
 );
 
 
-function ForumAnswer({ forum }: { forum: string }) {
+function ForumAnswer({ comments, forum, refetch, user }: { comments: IChat[], forum: string, refetch: Function, user: any }) {
 
     const [Answer, setAnswer] = useState("")
-
-    const { data: answers, isLoading, refetch } = useGetChat(forum)
-
-
+    const [submitting, setSubmitting] = useState(false)
 
 
     const handleAnswerSubmit = async () => {
@@ -42,8 +39,12 @@ function ForumAnswer({ forum }: { forum: string }) {
                     description: result.error.issues[0].message,
                 })
             }
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/forum/${forum}/chat`, {
-                content: Answer
+            setSubmitting(true)
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/create/forums/${forum}/chat`, {
+                content: Answer,
+                author: user?.data.username,
+                forum: forum,
+                reply_to: null
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("session_token")}`
@@ -51,16 +52,18 @@ function ForumAnswer({ forum }: { forum: string }) {
             })
 
             if (res.status === 201) {
+                await refetch()
                 toast({
                     title: "Success",
                     description: "Answer Posted",
                 })
                 setAnswer("")
-                await refetch()
+
             }
         } catch (error) {
             console.log(error)
         }
+        setSubmitting(false)
     }
 
     return (
@@ -68,8 +71,8 @@ function ForumAnswer({ forum }: { forum: string }) {
             <Label className="text-lg">Answers</Label>
             <div>
                 {
-                    isLoading ? <div>Loading...</div> : answers?.map((answer, index) => (
-                        <ChatCard key={index} chat={answer} />
+                    comments?.map((answer, index) => (
+                        <ChatCard key={index} chat={answer} forum={forum} reply_to={answer.id} refetch={refetch} />
                     ))
                 }
 
@@ -83,7 +86,9 @@ function ForumAnswer({ forum }: { forum: string }) {
                         You can use markdown to format your answer.
                     </span>
                 </span>
-                <Button variant={'default'} className="mt-2 " onClick={handleAnswerSubmit}>
+                <Button variant={'default'} className="mt-2 "
+                    disabled={submitting}
+                    onClick={handleAnswerSubmit}>
                     Post Answer
                 </Button>
             </div>

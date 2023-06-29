@@ -12,7 +12,7 @@ export const useGetForumsWithUsername = (username: string) => {
     const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ["all forums", username],
         queryFn: async () => {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}/forums`, {
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/${username}/forums`, {
                 headers: {
                     'Authorization': `Bearer ${typeof window !== 'undefined' && localStorage.getItem('session_token')}`
                 }

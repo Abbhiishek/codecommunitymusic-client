@@ -93,7 +93,7 @@ function Page() {
             "-",
         )}-${uniquestring}`
         console.log(slug)
-        const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/forums`, {
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/create/forums`, {
             title,
             description,
             tags,

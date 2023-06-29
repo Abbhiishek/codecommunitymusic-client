@@ -13,11 +13,7 @@ export const useGetForums = () => {
     const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ["allforums"],
         queryFn: async () => {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/forums`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('session_token')}`
-                }
-            });
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/forums`);
             return data as IForums;
         },
         cacheTime: 60 * 60 * 2, // 2 hours
