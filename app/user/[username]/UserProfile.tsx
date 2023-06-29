@@ -1,6 +1,7 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Forums from "@/components/user/Portfolio/Forums";
 import Projects from "@/components/user/Portfolio/Projects";
 import Stats from "@/components/user/Portfolio/Stats";
 import HeaderBar from "@/components/user/userHeaderBar";
@@ -35,6 +36,7 @@ function UserProfile({ username }: { username: string }) {
                 <TabsContent value="portfolio">
                     <Stats karma={user.data.karma} />
                     <Projects username={user.data.username} />
+                    <Forums username={user.data.username} />
                 </TabsContent>
                 <TabsContent value="resume">Change your password here.</TabsContent>
             </Tabs>
