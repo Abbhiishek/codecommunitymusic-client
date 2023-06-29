@@ -115,7 +115,7 @@ function ChatCard({ chat, forum, reply_to, refetch }: { chat: IChat, forum: stri
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center justify-between w-full gap-2">
                         <div className="flex items-center gap-2">
-                            <h2 className="lg:text-lg">{chat.author.display_name || chat.author.username} {chat.id}</h2>
+                            <h2 className="lg:text-lg">{chat.author.display_name || chat.author.username}</h2>
                             <span className="text-xs font-light text-gray-500 ">
                                 {
                                     new Date(chat?.created_at).toLocaleDateString()
@@ -203,7 +203,6 @@ function ChatCard({ chat, forum, reply_to, refetch }: { chat: IChat, forum: stri
                 {
                     showreplyEditor && (
                         <>
-                            <span>Reply to {chat.author.username} {reply_to}</span>
                             <ReplyMarkdownEditor value={reply} onChange={(e) => setReply(e)} className="min-h-[300px] lg:text-base" />
                             <Button className="w-full" onClick={handleAnswerSubmit} disabled={isReplying}>
                                 {isReplying ? "Replying..." : "Reply"}
