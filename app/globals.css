@@ -76,3 +76,358 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+/* article section */
+
+article div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+  padding: 20px 0;
+}
+
+article {
+  color: white;
+  overflow: hidden;
+}
+
+article h1 {
+  font-size: 2.0rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+article h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+article h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+article pre {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+article ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+
+article blockquote {
+  padding: 20px;
+  font-style: italic;
+}
+
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  color: #00ffe1;
+}
+
+article img {
+  max-width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+article nav li {
+  color: rgb(51, 133, 133);
+}
+
+article nav li:hover {
+  color: rgb(0, 255, 255);
+}
+
+article nav ol {
+  list-style-type: decimal;
+}
+
+article nav ol li {
+  margin-left: 1.5rem;
+}
+
+.toc {
+  margin: 0 20px;
+  padding: 20px 0;
+}
+
+article nav .toc ol {
+  position: sticky;
+  top: 0;
+}
+
+table {
+  /* border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  border-radius: 5px 5px 0 0;
+  overflow: scroll;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); */
+  @apply table-fixed !important;
+}
+
+
+/* 
+thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #000000;
+  color: #009879;
+}
+
+table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+} */
+
+
+/* Scroll Tech */
+
+.gallery-image:hover {
+  transform: scale(1.15);
+}
+
+
+/*
+
+The following rule will only run if your browser supports CSS grid.
+
+Remove or comment-out the code block below to see how the browser will fall-back to flexbox styling. 
+
+*/
+
+.slider-thumb::before {
+  position: absolute;
+  content: "";
+  left: 30%;
+  top: 215%;
+  width: 240px;
+  height: 240px;
+  background: #17141d;
+  border-radius: 62% 47% 82% 35% / 45% 45% 80% 66%;
+  will-change: border-radius, transform, opacity;
+  animation: sliderShape 5s linear infinite;
+  display: block;
+  z-index: -1;
+  -webkit-animation: sliderShape 5s linear infinite;
+}
+
+@keyframes sliderShape {
+  0%,
+  100% {
+      border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+      transform: translate3d(0, 0, 0) rotateZ(0.01deg);
+  }
+  34% {
+      border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
+      transform: translate3d(0, 5px, 0) rotateZ(0.01deg);
+  }
+  50% {
+      transform: translate3d(0, 0, 0) rotateZ(0.01deg);
+  }
+  67% {
+      border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+      transform: translate3d(0, -3px, 0) rotateZ(0.01deg);
+  }
+}
+
+code[class*='language-'],
+pre[class*='language-'] {
+  color: #d6e7ff;
+  background: #030314;
+  text-shadow: none;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: 1em;
+  line-height: 1.5;
+  letter-spacing: .2px;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  text-align: left;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre[class*='language-']::-moz-selection,
+pre[class*='language-'] ::-moz-selection,
+code[class*='language-']::-moz-selection,
+code[class*='language-'] ::-moz-selection,
+pre[class*='language-']::selection,
+pre[class*='language-'] ::selection,
+code[class*='language-']::selection,
+code[class*='language-'] ::selection {
+  color: inherit;
+  background: #1d3b54;
+  text-shadow: none;
+}
+
+pre[class*='language-'] {
+  border: 1px solid #2a4555;
+  border-radius: 5px;
+  padding: 1.5em 1em;
+  margin: 1em 0;
+  overflow: auto;
+}
+
+:not(pre)>code[class*='language-'] {
+  color: #f0f6f6;
+  background: #2a4555;
+  padding: 0.2em 0.3em;
+  border-radius: 0.2em;
+  box-decoration-break: clone;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #446e69;
+}
+
+.token.punctuation {
+  color: #d6b007;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #d6e7ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.builtin,
+.token.inserted {
+  color: #e60067;
+}
+
+.token.string,
+.token.char {
+  color: #49c6ec;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #ec8e01;
+  background: transparent;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #0fe468;
+}
+
+.token.function,
+.token.class-name {
+  color: #78f3e9;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #d6e7ff;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+
+/**
+ * Inspired by gatsby remark prism - https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/
+ * 1. Make the element just wide enough to fit its content.
+ * 2. Always fill the visible space in .code-highlight.
+ */
+
+.code-highlight {
+  float: left;
+  /* 1 */
+  min-width: 100%;
+  /* 2 */
+}
+
+.code-line {
+  display: block;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: -16px;
+  margin-right: -16px;
+  border-left: 4px solid rgba(0, 0, 0, 0);
+  /* Set placeholder for highlight accent border color to transparent */
+}
+
+.code-line.inserted {
+  background-color: rgba(16, 185, 129, 0.2);
+  /* Set inserted line (+) color */
+}
+
+.code-line.deleted {
+  background-color: rgba(239, 68, 68, 0.2);
+  /* Set deleted line (-) color */
+}
+
+.highlight-line {
+  margin-left: -16px;
+  margin-right: -16px;
+  background-color: rgba(55, 65, 81, 0.5);
+  /* Set highlight bg color */
+  border-left: 4px solid rgb(59, 130, 246);
+  /* Set highlight accent border color */
+}
+
+.code-line::before {
+  display: inline-block;
+  width: 1rem;
+  text-align: right;
+  margin-right: 16px;
+  margin-left: -8px;
+  color: rgb(156, 163, 175);
+  content: attr(line);
+}
