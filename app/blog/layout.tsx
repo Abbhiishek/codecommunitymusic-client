@@ -11,7 +11,7 @@ export default function BlogLayout({
     children: React.ReactNode
 }) {
     return (
-        <section className="container mt-5">
+        <section className="mt-5 lg:container">
             {children}
         </section>
     )
