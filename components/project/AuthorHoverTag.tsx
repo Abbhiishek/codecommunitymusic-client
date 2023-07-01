@@ -1,10 +1,8 @@
 import { useGetUser } from "@/hooks/user/getuser-username";
-
 import { CalendarDays } from "lucide-react";
-import { Button } from "../ui/button";
-
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 
 const AuthorHoverTag = ({ author }: { author: string }) => {
