@@ -26,7 +26,8 @@ export const PostValidator = z.object({
     is_draft: z.boolean(),
     is_published: z.boolean(),
 })
-export type PostCreationRequest = z.infer<typeof PostValidator>
+
+type PostCreationRequest = z.infer<typeof PostValidator>
 
 const Page = () => {
     const router = useRouter()
