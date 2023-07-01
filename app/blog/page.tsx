@@ -2,6 +2,7 @@ import BlogCard from "@/components/blog/BlogCard";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import axios from "axios";
+import { PlusCircleIcon } from "lucide-react";
 import Link from "next/link";
 
 
@@ -33,22 +34,24 @@ async function BlogPage() {
     return (
         <div>
             <div className="flex items-center justify-between">
-                <div>
+                <div className="gap-2">
                     <h1 className="text-4xl font-bold">Blog</h1>
-                    <p className="text-gray-500">A collection of blogs written by our community members</p>
+                    <span className="text-gray-500">A collection of blogs written by our community members</span>
                 </div>
                 <div>
                     <Button
                         variant={"default"}
                         size={"sm"}
                     >
-                        <Link href={'/blog/create'}>Create Blog</Link>
+                        <Link href={'/blog/create'}>
+                            <PlusCircleIcon className="w-5 h-5" />
+                        </Link>
                     </Button>
                 </div>
             </div>
 
             <Separator />
-            <div className="grid grid-cols-4">
+            <div className="grid gap-3 px-2 mt-10 lg:grid-cols-4 md:grid-cols-2 justify-items-center place-content-center">
                 {data.data.map((blog: BlogPost, index: number) => (
                     <BlogCard key={index}
                         blogslug={blog.slug}
