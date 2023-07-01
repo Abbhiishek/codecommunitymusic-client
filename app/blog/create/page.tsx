@@ -27,7 +27,6 @@ export const PostValidator = z.object({
     is_published: z.boolean(),
 })
 
-type PostCreationRequest = z.infer<typeof PostValidator>
 
 const Page = () => {
     const router = useRouter()
@@ -46,7 +45,13 @@ const Page = () => {
             tags,
             is_draft,
             is_published,
-        }: PostCreationRequest) => {
+        }: {
+            title: string,
+            content: string,
+            tags: string[],
+            is_draft: boolean,
+            is_published: boolean,
+        }) => {
             const uniquestring = nanoid(4);
             // make slug less than 50 characters
             const slug = `${title.slice(0, 30).toLowerCase()
