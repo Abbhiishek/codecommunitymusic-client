@@ -7,7 +7,7 @@ import axios from "axios"
 import { nanoid } from "nanoid"
 import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
-import { z } from "zod"
+import * as z from "zod"
 
 
 export const PostValidator = z.object({
