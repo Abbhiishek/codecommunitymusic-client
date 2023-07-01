@@ -15,10 +15,10 @@
 }
 
 .card {
-    font-family: 'Quicksand', sans-serif;
+    /* font-family: 'Quicksand', sans-serif; */
     display: flex;
     flex-direction: column;
-    width: clamp(15rem, calc(15rem + 2vw), 20rem);
+    /* width: clamp(15rem, calc(15rem + 2vw), 20rem); */
     overflow: hidden;
     box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
     border-radius: 1em;
@@ -58,15 +58,3 @@
     margin-top: auto;
 }
 
-.user {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.user__image {
-    border-radius: 50%;
-}
-
-.user__info>small {
-    color: #666;
-}

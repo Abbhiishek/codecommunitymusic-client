@@ -24,10 +24,6 @@ const MarkdownEditor = dynamic(
 );
 
 
-
-
-
-
 const Editor = ({
     title,
     tags,
@@ -52,7 +48,7 @@ const Editor = ({
 
 
     return (
-        <div className='w-full col-span-8 p-4 border rounded-lg border-zinc-200'>
+        <div className='w-full p-4 border rounded-lg lg:col-span-7 border-zinc-200'>
             <form
                 id='blog-post-form'
                 className='w-full'
@@ -62,7 +58,7 @@ const Editor = ({
                         value={title}
                         maxLength={100}
                         onChange={(e) => setTitle(e.target.value)}
-                        placeholder='Title'
+                        placeholder='Write a title for your post'
                         className='w-full overflow-hidden text-5xl font-bold bg-transparent appearance-none resize-none focus:outline-none'
                     />
                     <Separator />
@@ -78,15 +74,14 @@ const Editor = ({
                                     )}
                                 >
                                     {tags
-                                        ?
+                                        &&
                                         <div className="flex flex-wrap gap-1">
                                             {tags.map((interest) => (
                                                 <Badge key={interest}>{interest}</Badge>
                                             ))
                                             }
                                         </div>
-
-                                        : "Select Interest"}
+                                    }
                                     <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
                                 </Button>
                             </PopoverTrigger>
@@ -129,16 +124,17 @@ const Editor = ({
                             Choose up to 5 tags that will help categorize your post.
                         </span>
                     </div>
-                    <MarkdownEditor
-                        value={content}
-                        onChange={(value) => setContent(value)}
-                        className="h-[900px]  w-full lg:text-lg  bg-inherit"
-                        enableScroll={true}
-                        basicSetup={true}
-                        extensions={[]}
-                        spellCheck={true}
-                        placeholder="Write your post here..."
-                    />
+                    <Separator />
+                    <ScrollArea className="w-full h-80 lg:h-full">
+                        <MarkdownEditor
+                            value={content}
+                            onChange={(value) => setContent(value)}
+                            className="w-full h-screen lg:text-lg bg-inherit"
+                            basicSetup={true}
+                            spellCheck={true}
+                            placeholder="Write your post here..."
+                        />
+                    </ScrollArea>
                 </div>
             </form>
         </div>

@@ -2,7 +2,6 @@
 import Editor from "@/components/blog/Editor"
 import { Button } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
-import { Label } from "@radix-ui/react-dropdown-menu"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { nanoid } from "nanoid"
@@ -35,7 +34,8 @@ const Page = () => {
     const [title, setTitle] = useState<string>("")
     const [tags, setTags] = useState<string[]>([])
     const [content, setContent] = useState<string>("")
-    const [isdraft, setIsDraft] = useState<boolean>(false)
+    const [isdraft, setIsDraft] = useState<boolean>(true)
+    const [isposting, setIsPosting] = useState<boolean>(false)
 
 
     const { mutate: createPost } = useMutation({
@@ -47,13 +47,16 @@ const Page = () => {
             is_published,
         }: PostCreationRequest) => {
             const uniquestring = nanoid(4);
-            const slug = `${title.toLowerCase()
+            // make slug less than 50 characters
+            const slug = `${title.slice(0, 30).toLowerCase()
+                .trim()
                 .replace(/ /g, "-")
                 .replace(/[^a-z0-9-_]/g, "")
                 .replace(/--+/g, "-")
                 .replace(/^-+/, "")
                 .replace(/\s+/g, "-")
-                }-${uniquestring}`
+                }${uniquestring}`
+            console.log(slug)
             const payload = { title, content, tags, is_draft, is_published, slug }
             const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/create/blogs`, payload, {
                 headers: {
@@ -61,9 +64,11 @@ const Page = () => {
                     'Authorization': `Bearer ${localStorage.getItem('session_token')}`
                 }
             })
+            setIsPosting(false)
             return data
         },
         onError: () => {
+            setIsPosting(false)
             return toast({
                 title: 'Something went wrong.',
                 description: 'Your post was not published. Please try again.',
@@ -83,8 +88,8 @@ const Page = () => {
         },
     })
 
-    async function onSubmit() {
-
+    async function onSubmitPublic() {
+        setIsPosting(true)
         const result = PostValidator.safeParse({
             title,
             content,
@@ -99,17 +104,33 @@ const Page = () => {
                 variant: 'destructive',
             })
         }
-        const payload = { title, content, tags, is_published: !isdraft, is_draft: isdraft }
+        const payload = { title, content, tags, is_published: true, is_draft: false }
+        createPost(payload)
+    }
+    async function onSubmitPrivate() {
+        setIsPosting(true)
+        const result = PostValidator.safeParse({
+            title,
+            content,
+            tags,
+            is_draft: isdraft,
+            is_published: !isdraft,
+        })
+        if (!result.success) {
+            return toast({
+                title: 'Something went wrong.',
+                description: result.error.errors[0].message,
+                variant: 'destructive',
+            })
+        }
+        const payload = { title, content, tags, is_published: false, is_draft: true }
         createPost(payload)
     }
 
     return (
         <div className="flex flex-col items-start gap-6">
-            <Label>
-                Publish your Blog
-            </Label>
             {/* form */}
-            <div className="grid w-full grid-cols-10 gap-4">
+            <div className="grid w-full grid-cols-1 gap-4 lg:h-[400px] lg:grid-cols-10">
                 <Editor
                     title={title}
                     tags={tags}
@@ -120,26 +141,28 @@ const Page = () => {
                     setContent={setContent}
                     setIsDraft={setIsDraft}
                 />
-                <div className='flex flex-col w-full col-span-2 gap-2'>
-                    {title}
-                    <Button className='w-full'
-                        onClick={() => {
-                            console.log("publishing blog")
-                            setIsDraft(false)
-                            onSubmit()
-                        }}
-                    >
-                        Publish Blog
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            console.log("saving as draft")
-                            setIsDraft(true)
-                            onSubmit()
-                        }}
-                        className='w-full bg-yellow-500 hover:bg-yellow-600' >
-                        Save as Draft
-                    </Button>
+                <div className='w-full lg:col-span-3'>
+                    <div className="flex items-center justify-between w-full gap-2 p-2 border-2 rounded-lg border-zinc-200 lg:flex-col">
+                        <Button
+                            className="w-full"
+                            disabled={isposting}
+                            onClick={async () => {
+                                await onSubmitPublic()
+                            }}
+                        >
+                            Publish Blog
+                        </Button>
+                        <Button
+                            className="w-full"
+                            disabled={isposting}
+                            onClick={async () => {
+                                await onSubmitPrivate()
+                            }}
+                            variant={"secondary"}
+                        >
+                            Save as Draft
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

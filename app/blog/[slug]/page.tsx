@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 "use strict";
 
@@ -6,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetBlog } from "@/hooks/blog/getblog";
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from 'react-markdown';
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -58,12 +60,15 @@ function BlogSlug({ params }: BlogSlugProps) {
             </div>
             <div className="flex flex-col">
                 <div className="object-cover rounded-2xl">
-                    <img
-                        src={`https://wiidgets.vercel.app/api/banner?title=${data?.data?.blog.title}&bio=${data?.data?.blog.tags}&twitter=${data?.data?.blog.author.username}`}
+                    <Image
+                        src={`https://source.unsplash.com/1000x400/?${data?.data.blog.tags.join(',')}`}
                         className="w-full rounded-md shadow-md lg:rounded-2xl"
-                        alt={data?.data?.blog.author.username} />
+                        alt={data?.data?.blog.author.username!}
+                        width="1000"
+                        height="400"
+                    />
                 </div>
-                <h1 className="text-4xl font-semibold ">
+                <h1 className="mt-4 text-4xl font-semibold">
                     {data?.data.blog.title}
                 </h1>
                 <span className="flex flex-wrap items-center justify-start gap-4 mt-2">
@@ -78,13 +83,13 @@ function BlogSlug({ params }: BlogSlugProps) {
                     })}
                 </span>
                 <Separator className="my-5" />
-                <div className="grid grid-cols-12 my-10">
-                    <div className="w-1/4 col-span-2">
+                <div className="grid my-10 lg:grid-cols-12">
+                    <div className="w-1/4 lg:col-span-2">
                         <p className="text-sm font-light">
                             {data?.data.blog.slug}
                         </p>
                     </div>
-                    <article className="w-full col-span-10">
+                    <article className="w-full lg:col-span-10">
                         <h2>Table of Content</h2>
                         <ReactMarkdown
                             remarkPlugins={
@@ -93,7 +98,7 @@ function BlogSlug({ params }: BlogSlugProps) {
                             rehypePlugins={[
                                 [rehypeSlug],
                                 [rehypeAutolinkHeadings, { behavior: "wrap" }],
-                                [rehypeHighlight],
+                                [rehypeHighlight, { ignoreMissing: true }],
                                 rehypePrism,
                                 [toc, {
                                     headings: "h1, h2, h3, h4, h5, h6",
