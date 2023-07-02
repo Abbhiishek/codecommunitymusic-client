@@ -7,29 +7,67 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/components/ui/use-toast";
 import { useGetForum } from "@/hooks/forum/get-forum";
 import { useGetSessionUser } from "@/hooks/user/get-current-user";
+import { IForumData } from "@/types/Forum";
 import { Separator } from "@components/ui/separator";
 import "@uiw/react-markdown-preview/markdown.css";
 import "@uiw/react-md-editor/markdown-editor.css";
 import axios from "axios";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, TrashIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
-
 interface ForumSlugPageProps {
     params: {
         slug: string
     }
 }
 
+export async function generateStaticParams() {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/forums`)
+    return data.data.map((project: any) => ({
+        params: {
+            projectSlug: project.slug
+        }
+    }))
+}
+
+
+export async function generateMetadata({ params }: ForumSlugPageProps) {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
+    const forum: IForumData = data.data.find((forum: any) => forum.slug === params.slug)
+    return {
+        title: forum?.title,
+        description: forum?.description,
+        type: "article",
+        keywords: [forum?.title, forum?.description, forum?.tags, forum?.author],
+        openGraph: {
+            title: forum?.title,
+            description: forum?.description,
+            url: `https://codecommunitymusic.vercel.app/forum/${forum?.slug}`,
+            type: "article",
+            publishedTime: forum?.created_at,
+            authors: [forum?.author],
+            images: [
+                {
+                    url: `https://wiidgets.vercel.app/api/banner?title=${forum?.title}&bio=${forum?.description.slice(0, 50)}&twitter=${forum?.author}`,
+                    width: 800,
+                    height: 600,
+                    alt: forum?.title,
+                },
+            ],
+        },
+    }
+}
 function ForumSlugPage({ params }: ForumSlugPageProps) {
 
     const { data, isLoading, refetch } = useGetForum(params.slug);
     const { data: user } = useGetSessionUser();
     const [ischanging, setIsChanging] = useState(false);
+    const router = useRouter();
 
 
 
@@ -55,7 +93,25 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
     }
 
 
-    if (isLoading && !data) {
+
+    const handleDelete = async () => {
+
+        const res = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/delete/forums/${data?.data.slug}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('session_token')}`
+            }
+        })
+        if (res.status === 204) {
+            toast({
+                title: 'Forum deleted',
+                description: 'Forum deleted successfully',
+            })
+            router.push('/forum')
+        }
+    }
+
+
+    if (isLoading) {
         return (
             <div className="container flex flex-col gap-2 pt-10">
                 <div className="flex flex-col gap-2">
@@ -70,6 +126,16 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
             </div>
         )
     }
+
+    if (!data?.data) {
+        toast({
+            title: 'Forum not found',
+            description: 'we are redirecting you to the forums page',
+            variant: "destructive"
+        })
+        return router.push('/forum')
+    }
+
     return (
         <div className="container pt-10">
             <div className="py-5 ">
@@ -125,6 +191,12 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
                                     </Button>
                                 )
                             }
+                            <Button
+                                variant="destructive"
+                                onClick={handleDelete}
+                            >
+                                <TrashIcon className="" />
+                            </Button>
                         </div>
                     ) : null
                 }
