@@ -64,8 +64,8 @@ function Page() {
 
     if (!data) {
         toast({
-            title: "Error",
-            description: "You must be logged in to create a forum",
+            title: "You must be logged in to ask a question",
+            variant: "destructive"
         })
         router.push("/login")
     }
