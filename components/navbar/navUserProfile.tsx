@@ -12,10 +12,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import {
+    BookCopyIcon,
     Github,
+    HelpCircle,
     LayoutDashboardIcon,
     LifeBuoy,
     LogOut,
+    Presentation,
     Settings,
     TrendingUp,
     User
@@ -32,6 +35,9 @@ const navigation = [
     { name: 'Profile', href: '/profile', logo: <User className="w-4 h-4 mr-2" /> },
     { name: 'Leaderboard', href: '/leaderboard', logo: <TrendingUp className="w-4 h-4 mr-2" /> },
     { name: 'Dashboard', href: '/dashboard', logo: <LayoutDashboardIcon className="w-4 h-4 mr-2" /> },
+    { name: 'Explore Projects', href: '/project', logo: <Presentation className="w-4 h-4 mr-2" /> },
+    { name: 'Publish Blog', href: '/blog/create', logo: <BookCopyIcon className="w-4 h-4 mr-2" /> },
+    { name: 'Ask Question', href: '/forum/create', logo: <HelpCircle className="w-4 h-4 mr-2" /> },
     { name: 'Settings', href: '/setting', logo: <Settings className="w-4 h-4 mr-2" /> },
 ]
 
@@ -63,8 +69,10 @@ const NavUserProfile = ({ session }: { session: UserData }) => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                    <Github className="w-4 h-4 mr-2" />
-                    <span>GitHub</span>
+                    <Link href="https://github.com/Abbhiishek/codecommunitymusic-client" target="_blank" className="flex">
+                        <Github className="w-4 h-4 mr-2" />
+                        <span>GitHub</span>
+                    </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                     <LifeBuoy className="w-4 h-4 mr-2" />

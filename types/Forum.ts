@@ -13,7 +13,7 @@ export interface IForumData {
 }
 
 
-interface ShortUser {
+export interface ShortUser {
     username: string;
     display_name: string;
     profile_pic: string;
