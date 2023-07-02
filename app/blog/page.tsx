@@ -6,6 +6,8 @@ import { PlusCircleIcon } from "lucide-react";
 import Link from "next/link";
 
 
+export const revalidate = 20;
+
 interface BlogPost {
     id: number;
     appreciators: User[];
