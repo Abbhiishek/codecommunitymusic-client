@@ -1,7 +1,9 @@
 "use client"
 import Editor from "@/components/blog/Editor"
 import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
 import { toast } from "@/components/ui/use-toast"
+import { useGetSessionUser } from "@/hooks/user/get-current-user"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { nanoid } from "nanoid"
@@ -31,13 +33,12 @@ const PostValidator = z.object({
 const Page = () => {
     const router = useRouter()
     const pathname = usePathname()
+    const { data: user, isLoading } = useGetSessionUser()
     const [title, setTitle] = useState<string>("")
     const [tags, setTags] = useState<string[]>([])
     const [content, setContent] = useState<string>("")
     const [isdraft, setIsDraft] = useState<boolean>(true)
     const [isposting, setIsPosting] = useState<boolean>(false)
-
-
     const { mutate: createPost } = useMutation({
         mutationFn: async ({
             title,
@@ -93,6 +94,24 @@ const Page = () => {
             })
         },
     })
+
+
+    if (isLoading) {
+        return (
+            <>
+                <Skeleton className="w-full h-60" />
+            </>
+        )
+    }
+
+
+    if (!user) {
+        toast({
+            title: 'You must be logged in to create a post.',
+            variant: 'destructive',
+        })
+        router.push('/login')
+    }
 
     async function onSubmitPublic() {
         setIsPosting(true)
