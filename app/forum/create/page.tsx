@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
 
+
 const schema = z.object({
     title: z.string().min(10, {
         message: "Title must be at least 10 characters long"
@@ -64,8 +65,8 @@ function Page() {
 
     if (!data) {
         toast({
-            title: "Error",
-            description: "You must be logged in to create a forum",
+            title: "You must be logged in to ask a question",
+            variant: "destructive"
         })
         router.push("/login")
     }

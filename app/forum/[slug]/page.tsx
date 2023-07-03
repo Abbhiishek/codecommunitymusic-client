@@ -1,4 +1,5 @@
-'use client'
+"use client"
+
 import ForumAnswer from "@/components/forum/forumAnswer";
 import AuthorHoverTag from "@/components/project/AuthorHoverTag";
 import { Badge } from "@/components/ui/badge";
@@ -11,28 +12,37 @@ import { Separator } from "@components/ui/separator";
 import "@uiw/react-markdown-preview/markdown.css";
 import "@uiw/react-md-editor/markdown-editor.css";
 import axios from "axios";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, TrashIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
-
 interface ForumSlugPageProps {
     params: {
         slug: string
     }
 }
 
+export async function generateStaticParams() {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/forums`)
+    return data.data.map((project: any) => ({
+        params: {
+            projectSlug: project.slug
+        }
+    }))
+}
+
+
 function ForumSlugPage({ params }: ForumSlugPageProps) {
+
 
     const { data, isLoading, refetch } = useGetForum(params.slug);
     const { data: user } = useGetSessionUser();
     const [ischanging, setIsChanging] = useState(false);
-
-
-
+    const router = useRouter();
 
     const handleSolved = async () => {
         setIsChanging(true);
@@ -43,7 +53,6 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
                 Authorization: `Bearer ${localStorage.getItem('session_token')}`
             }
         })
-
         if (res.status === 200) {
             await refetch();
             toast({
@@ -55,7 +64,25 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
     }
 
 
-    if (isLoading && !data) {
+
+    const handleDelete = async () => {
+
+        const res = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/delete/forums/${data?.data.slug}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('session_token')}`
+            }
+        })
+        if (res.status === 204) {
+            toast({
+                title: 'Forum deleted',
+                description: 'Forum deleted successfully',
+            })
+            router.push('/forum')
+        }
+    }
+
+
+    if (isLoading) {
         return (
             <div className="container flex flex-col gap-2 pt-10">
                 <div className="flex flex-col gap-2">
@@ -70,6 +97,16 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
             </div>
         )
     }
+
+    if (!data?.data) {
+        toast({
+            title: 'Forum not found',
+            description: 'we are redirecting you to the forums page',
+            variant: "destructive"
+        })
+        return router.push('/forum')
+    }
+
     return (
         <div className="container pt-10">
             <div className="py-5 ">
@@ -125,6 +162,12 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
                                     </Button>
                                 )
                             }
+                            <Button
+                                variant="destructive"
+                                onClick={handleDelete}
+                            >
+                                <TrashIcon className="" />
+                            </Button>
                         </div>
                     ) : null
                 }

@@ -4,6 +4,7 @@ import { IChat } from "@/types/Forum";
 import "@uiw/react-markdown-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import * as z from 'zod';
@@ -87,9 +88,22 @@ function ForumAnswer({ comments, forum, refetch, user }: { comments: IChat[], fo
                     </span>
                 </span>
                 <Button variant={'default'} className="mt-2 "
-                    disabled={submitting}
+                    disabled={submitting || Answer === "" || !user}
                     onClick={handleAnswerSubmit}>
-                    Post Answer
+                    {
+                        submitting && (
+                            <Loader2 className="ml-2 animate-spin" size={18} />
+                        )
+                    }
+                    {
+                        !user ? (
+                            <span className="ml-2 text-red-500">
+                                Login to post answer
+                            </span>
+                        ) : (
+                            <span>Post Answer</span>
+                        )
+                    }
                 </Button>
             </div>
         </div>
