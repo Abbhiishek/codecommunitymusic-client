@@ -50,9 +50,6 @@ function Projects() {
     return (
         <>
             <div className="container grid gap-4 mt-10 lg:grid-cols-12 pb-36">
-                {/* <div className="w-full col-span-12 lg:col-span-3">
-                    <ProjectFilterOptions search={search} setSearch={setSearch} />
-                </div> */}
                 <div className="flex flex-col w-full col-span-12 gap-3 overflow-y-auto lg:col-span-12">
                     <div className="flex flex-col justify-start gap-4">
                         <h1 className="font-serif text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">Projects</h1>
@@ -80,7 +77,6 @@ function Projects() {
                             }
                         </div>
                     </div>
-
                     {
                         filteredProjects?.length == 0 &&
                         <div className="flex flex-col items-center justify-center w-full lg:px-10 h-96">
