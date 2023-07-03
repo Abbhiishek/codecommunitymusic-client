@@ -1,4 +1,5 @@
-'use client'
+"use client"
+
 import ForumAnswer from "@/components/forum/forumAnswer";
 import AuthorHoverTag from "@/components/project/AuthorHoverTag";
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +8,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/components/ui/use-toast";
 import { useGetForum } from "@/hooks/forum/get-forum";
 import { useGetSessionUser } from "@/hooks/user/get-current-user";
-import { IForumData } from "@/types/Forum";
 import { Separator } from "@components/ui/separator";
 import "@uiw/react-markdown-preview/markdown.css";
 import "@uiw/react-md-editor/markdown-editor.css";
@@ -36,41 +36,13 @@ export async function generateStaticParams() {
 }
 
 
-export async function generateMetadata({ params }: ForumSlugPageProps) {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
-    const forum: IForumData = data.data.find((forum: any) => forum.slug === params.slug)
-    return {
-        title: forum?.title,
-        description: forum?.description,
-        type: "article",
-        keywords: [forum?.title, forum?.description, forum?.tags, forum?.author],
-        openGraph: {
-            title: forum?.title,
-            description: forum?.description,
-            url: `https://codecommunitymusic.vercel.app/forum/${forum?.slug}`,
-            type: "article",
-            publishedTime: forum?.created_at,
-            authors: [forum?.author],
-            images: [
-                {
-                    url: `https://wiidgets.vercel.app/api/banner?title=${forum?.title}&bio=${forum?.description.slice(0, 50)}&twitter=${forum?.author}`,
-                    width: 800,
-                    height: 600,
-                    alt: forum?.title,
-                },
-            ],
-        },
-    }
-}
 function ForumSlugPage({ params }: ForumSlugPageProps) {
+
 
     const { data, isLoading, refetch } = useGetForum(params.slug);
     const { data: user } = useGetSessionUser();
     const [ischanging, setIsChanging] = useState(false);
     const router = useRouter();
-
-
-
 
     const handleSolved = async () => {
         setIsChanging(true);
@@ -81,7 +53,6 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
                 Authorization: `Bearer ${localStorage.getItem('session_token')}`
             }
         })
-
         if (res.status === 200) {
             await refetch();
             toast({

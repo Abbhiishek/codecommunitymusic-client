@@ -5,12 +5,7 @@ import { IForumData } from "@/types/Forum";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 
-function ForumCard(
-    { forum }: { forum: IForumData }
-) {
-
-
-
+function ForumCard({ forum }: { forum: IForumData }) {
     return (
         <Link href={`/forum/${forum.slug}`}>
             <div className="flex flex-col w-full gap-3 p-5 border-4 rounded-xl">
@@ -46,7 +41,7 @@ function ForumCard(
                 </div>
                 <div className="flex flex-col gap-2 ">
                     <p className="text-lg font-semibold lg:text-2xl">{forum.title}</p>
-                    <p className="font-light truncate lg:text-lg">{forum.description.slice(0, 100)}...</p>
+                    <p className="font-light truncate lg:text-lg">{forum.description}</p>
                     <span className="flex flex-wrap items-center gap-2">
                         {
                             forum.tags.length === 0 && <Badge className="text-white bg-gray-500">No tags</Badge>
