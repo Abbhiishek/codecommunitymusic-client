@@ -33,10 +33,10 @@ const ProjectCardOptions = ({ project }: IProjectCardProps) => {
             if (project.bookmarks.includes(user.data.username)) {
                 setProjectBookmarked(true)
             }
-            setBookmarkCount(project.bookmarks.length)
-            setLikeCount(project.upvotes.length)
         }
-    }, [])
+        setBookmarkCount(project.bookmarks.length)
+        setLikeCount(project.upvotes.length)
+    }, [project, user])
 
 
     const likeprojectmutation = useMutation({
@@ -52,6 +52,10 @@ const ProjectCardOptions = ({ project }: IProjectCardProps) => {
 
     async function likeProject(slug: string) {
         try {
+            if (!user) return toast({
+                title: "Error",
+            })
+
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/like/project/${slug}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("session_token")}`,
@@ -83,6 +87,9 @@ const ProjectCardOptions = ({ project }: IProjectCardProps) => {
     }
     async function bookmarkProject(slug: string) {
         try {
+            if (!user) return toast({
+                title: "Error",
+            })
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/bookmark/project/${slug}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("session_token")}`,
@@ -117,6 +124,11 @@ const ProjectCardOptions = ({ project }: IProjectCardProps) => {
         setisliking(true)
         if (user) {
             likeprojectmutation.mutate(project.slug)
+        } else {
+            toast({
+                title: "Login to like the project",
+                variant: "destructive",
+            })
         }
         setisliking(false)
     }
@@ -125,6 +137,11 @@ const ProjectCardOptions = ({ project }: IProjectCardProps) => {
         setisbookmarking(true)
         if (user) {
             bookmarkprojectmutation.mutate(project.slug)
+        } else {
+            toast({
+                title: "Login to Bookmark the project",
+                variant: "destructive",
+            })
         }
         setisbookmarking(false)
     }
