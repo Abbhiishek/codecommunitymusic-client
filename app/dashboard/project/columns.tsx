@@ -28,7 +28,7 @@ export const columns: ColumnDef<IProjectData>[] = [
         header: "Likes",
         cell: ({ row }) => {
             const project = row.original
-            return <code>{project.upvotes.length}</code>
+            return <code>{project.upvotes?.length}</code>
         }
     },
     {
