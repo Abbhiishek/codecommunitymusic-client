@@ -1,6 +1,3 @@
-"use client"
-
-
 import { queryClient } from "@/app/ReactQueryProvider";
 import { IBlog } from "@/types/Blog";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +12,7 @@ export const useGetBlog = (slug: string) => {
     const cached_forum = queryClient.getQueryData(["blog", slug]) as IBlog;
 
     const { data, isLoading, isError, error, refetch } = useQuery({
-        queryKey: ["blog", slug],
+        queryKey: ["forum", slug],
         queryFn: async () => {
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs/${slug}`, {
                 headers: {
