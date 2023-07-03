@@ -1,28 +1,30 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import AuthorHoverTag from "@/components/project/AuthorHoverTag";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/components/ui/use-toast";
 import { useGetProject } from "@/hooks/project/get-project";
 import { useGetSessionUser } from "@/hooks/user/get-current-user";
-import { ResourceNotFoundError } from "@/lib/exceptions";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { BookmarkIcon, Eye, GithubIcon, Heart } from "lucide-react";
+import { ArrowLeft, BookmarkIcon, Eye, GithubIcon, Heart } from "lucide-react";
 import Link from "next/link";
+import { notFound } from 'next/navigation';
 import { useEffect, useState } from "react";
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
 
 function ProjectSlug({ projectSlug }: { projectSlug: string }) {
-
-
     const { data, isLoading, } = useGetProject(projectSlug)
     const { data: user } = useGetSessionUser()
     const [projectliked, setProjectLiked] = useState<boolean>()
     const [projectbookmarked, setProjectBookmarked] = useState<boolean>()
-
-
     useEffect(() => {
         if (data) {
             if (user) {
@@ -48,12 +50,36 @@ function ProjectSlug({ projectSlug }: { projectSlug: string }) {
         cacheTime: 0,
     })
 
+
     if (isLoading) {
-        return <div>Loading...</div>
+        return (
+            <div className="container flex flex-col mt-2">
+                <div className="py-5 ">
+                    <div className="text-blue-700 cursor-pointer hover:text-blue-900">
+                        <Link href={'/project'} className="flex items-center gap-2">
+                            <ArrowLeft />
+                            <p>
+                                Back to Projects
+                            </p>
+                        </Link>
+                    </div>
+                </div>
+                {
+                    isLoading && <Skeleton className="w-full h-96" />
+                }
+            </div>
+        )
     }
+
+
     if (!data) {
-        throw ResourceNotFoundError;
+        notFound()
     }
+
+
+    const parts = data.data.githubLink.split("/");
+    const username = parts[3];
+    const repository = parts[4];
 
     const handlelike = () => {
         if (user) {
@@ -136,6 +162,19 @@ function ProjectSlug({ projectSlug }: { projectSlug: string }) {
 
     return (
         <div className="container flex flex-col mt-2">
+            <div className="py-5 ">
+                <div className="text-blue-700 cursor-pointer hover:text-blue-900">
+                    <Link href={'/project'} className="flex items-center gap-2">
+                        <ArrowLeft />
+                        <p>
+                            Back to Projects
+                        </p>
+                    </Link>
+                </div>
+            </div>
+            {
+                isLoading && <Skeleton className="w-full h-96" />
+            }
             <div className="object-cover rounded-2xl">
                 <img
                     src={`https://wiidgets.vercel.app/api/banner?title=${data?.data?.title}&bio=${data.data.subtitle}&twitter=${data.data.author}`}
@@ -191,13 +230,48 @@ function ProjectSlug({ projectSlug }: { projectSlug: string }) {
             </div>
             <div className="flex flex-col justify-between gap-5 mt-10 lg:flex-row">
                 <div className="flex flex-col gap-2 basis-3/4">
-                    <span className="font-mono text-2xl font-semibold">
-                        Description
-                    </span>
-                    <span>
-                        {data.data.description}
-                    </span>
+                    <article>
+                        <h1 className="font-mono font-semibold">
+                            Description
+                        </h1>
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                                code({ inline, className, children, ...props }) {
+                                    const match = /language-(\w+)/.exec(className || '')
+                                    return !inline && match ? (
+                                        <SyntaxHighlighter
+                                            {...props}
+                                            // eslint-disable-next-line react/no-children-prop
+                                            children={String(children).replace(/\n$/, '')}
+                                            style={materialDark}
+                                            language={match[1]}
+                                            PreTag="div"
+                                            showLineNumbers={true}
+                                            lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+                                            customStyle={{ borderRadius: '10px', padding: '1rem', backgroundColor: '#2d2d2d', overflowX: 'auto', wordBreak: 'break-all', whiteSpace: 'pre-wrap' }}
+                                        />
+                                    ) : (
+                                        <code {...props} className={className}>
+                                            {children}
+                                        </code>
+                                    )
+                                }
+                            }}
+                        >
+                            {data?.data?.description!}
+                        </ReactMarkdown>
+                        <h2>Github Stat&apos;s Card</h2>
+                        <img
+                            src={`https://wiidgets.vercel.app/api/github/repocard?owner=${username}&repo=${repository}&theme=codeSTACKr`}
+                            alt={data.data.title}
+                            width={900}
+                            height={500}
+
+                        />
+                    </article>
                 </div>
+
                 <div className=" basis-1/4">
                     <div className="flex flex-col gap-2 px-4 py-2 border-4 rounded-xl">
                         <span className="font-mono text-2xl font-semibold">
@@ -221,11 +295,23 @@ function ProjectSlug({ projectSlug }: { projectSlug: string }) {
                             ))}
                         </div>
                     </div>
+                    <Separator className="my-10 " />
+                    <div className="flex flex-col gap-2 px-4 py-2 border-4 rounded-xl">
+                        <span className="font-mono text-2xl font-semibold">
+                            Upvotes
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                            {data.data.upvotes.map((upvote) => (
+                                <Badge key={upvote} variant="secondary">
+                                    {upvote}
+                                </Badge>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
-
             <Separator className="my-10 " />
-        </div>
+        </div >
     )
 }
 

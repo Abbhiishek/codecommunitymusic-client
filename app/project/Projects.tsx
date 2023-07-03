@@ -34,7 +34,7 @@ function Projects() {
                 );
             })
             setFilteredProjects(project!)
-        }, 1000)
+        }, 400)
     }, [search, data])
 
 
@@ -64,19 +64,19 @@ function Projects() {
                                 onChange={(e) => setSearch(e.target.value)}
                                 className="w-full lg:w-1/2"
                             />
-                            {
+                            {user &&
                                 user?.data.is_verified ?
-                                    <div className="">
-                                        <CreateProject />
-                                    </div>
-                                    :
-                                    <Link href={`/verify`} legacyBehavior>
-                                        <Button
-                                            variant={'secondary'}
-                                            className="inline-block">
-                                            Verify to Create Project
-                                        </Button>
-                                    </Link>
+                                <div className="">
+                                    <CreateProject />
+                                </div>
+                                :
+                                <Link href={`/login`} legacyBehavior>
+                                    <Button
+                                        variant={'secondary'}
+                                        className="inline-block">
+                                        Login to Create Project
+                                    </Button>
+                                </Link>
                             }
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 
 import { IProjectData } from "@/types/Project";
 import axios from "axios";
+import { notFound } from "next/navigation";
 import ProjectSlug from "./ProjectSlug";
 
 interface ProjectProps {
@@ -21,8 +22,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: ProjectProps) {
     const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
     const project: IProjectData = data.data.find((project: any) => project.slug === params.projectSlug)
+    if (!project) return notFound()
     return {
-        title: project?.title,
+        title: `${project?.title} | Code Community Music`,
         description: project?.subtitle,
         type: "article",
         keywords: [project?.title, project?.subtitle, project?.description, project?.tags, project?.author],
@@ -35,7 +37,7 @@ export async function generateMetadata({ params }: ProjectProps) {
             authors: [project?.author],
             images: [
                 {
-                    url: `https://wiidgets.vercel.app/api/banner?title=${project.title}&bio=${project.subtitle}&twitter=${project.author}`,
+                    url: `https://wiidgets.vercel.app/api/banner?title=${project?.title}&bio=${project?.subtitle}&twitter=${project?.author}`,
                     width: 800,
                     height: 600,
                     alt: project?.title,
