@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
-"use strict";
+
 
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetBlog } from "@/hooks/blog/getblog";
+import { ResourceNotFoundError } from "@/lib/exceptions";
+import { IBlogData } from "@/types/Blog";
+import axios from "axios";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,9 +27,53 @@ interface BlogSlugProps {
 }
 
 
-function BlogSlug({ params }: BlogSlugProps) {
-    const { data, isLoading } = useGetBlog(params.slug)
-    if (isLoading) {
+export async function generateStaticParams() {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs`)
+    return data.data.map((blog: IBlogData) => ({
+        params: {
+            slug: blog.slug
+        }
+    }))
+}
+
+
+export async function generateMetadata({ params }: BlogSlugProps) {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs`)
+    const blog: IBlogData = data.data.find((blog: any) => blog.slug === params.slug)
+    return {
+        title: blog?.title,
+        description: blog?.content,
+        type: "article",
+        keywords: [blog?.title, blog?.content, blog?.tags, blog?.author],
+        openGraph: {
+            title: blog?.title,
+            description: blog?.content,
+            url: `https://codecommunitymusic.vercel.app/forum/${blog?.slug}`,
+            type: "article",
+            publishedTime: blog?.created_at,
+            authors: [blog?.author],
+            images: [
+                {
+                    url: `https://wiidgets.vercel.app/api/banner?title=${blog?.title}&bio=${blog?.content.slice(0, 50)}&twitter=${blog?.author}`,
+                    width: 800,
+                    height: 600,
+                    alt: blog?.title,
+                },
+            ],
+        },
+    }
+}
+
+
+async function BlogSlug({ params }: BlogSlugProps) {
+    const { data, status } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs/${params.slug}`)
+
+
+    if (status === 404) {
+        throw new ResourceNotFoundError(`Blog with slug ${params.slug} not found`)
+    }
+
+    if (!data) {
         return (
             <>
                 <div className="py-5 ">
@@ -45,6 +90,8 @@ function BlogSlug({ params }: BlogSlugProps) {
             </>
         )
     }
+
+
 
     return (
         <div>
@@ -107,7 +154,7 @@ function BlogSlug({ params }: BlogSlugProps) {
                                     slug: (text: String) => text.toLowerCase().replace(/\s/g, "-"),
                                     params: {
                                         depth: 3,
-                                    }
+                                    },
                                 }]
                             ]}
                         >
