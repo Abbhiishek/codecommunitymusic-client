@@ -4,12 +4,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ResourceNotFoundError } from "@/lib/exceptions";
 import { IBlogData } from "@/types/Blog";
 import axios from "axios";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import ReactMarkdown from 'react-markdown';
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
@@ -30,9 +30,7 @@ interface BlogSlugProps {
 export async function generateStaticParams() {
     const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs`)
     return data.data.map((blog: IBlogData) => ({
-        params: {
-            slug: blog.slug
-        }
+        slug: blog.slug
     }))
 }
 
@@ -40,6 +38,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: BlogSlugProps) {
     const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs`)
     const blog: IBlogData = data.data.find((blog: any) => blog.slug === params.slug)
+    if (!blog) notFound()
     return {
         title: blog?.title,
         description: blog?.content,
@@ -66,13 +65,7 @@ export async function generateMetadata({ params }: BlogSlugProps) {
 
 
 async function BlogSlug({ params }: BlogSlugProps) {
-    const { data, status } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs/${params.slug}`)
-
-
-    if (status === 404) {
-        throw new ResourceNotFoundError(`Blog with slug ${params.slug} not found`)
-    }
-
+    const { data, } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs/${params.slug}`)
     if (!data) {
         return (
             <>

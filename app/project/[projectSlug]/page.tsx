@@ -13,9 +13,7 @@ interface ProjectProps {
 export async function generateStaticParams() {
     const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
     return data.data.map((project: any) => ({
-        params: {
-            projectSlug: project.slug
-        }
+        projectSlug: project.slug
     }))
 }
 
