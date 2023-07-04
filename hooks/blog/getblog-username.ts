@@ -8,10 +8,10 @@ import axios from "axios";
 
 export const useGetBlogWithUsername = (username: string) => {
 
-    const chached_projects = queryClient.getQueryData(["projects", username]) as IBlogData[];
+    const chached_projects = queryClient.getQueryData(["blogs", username]) as IBlogData[];
 
     const { data, isLoading, isError, error, refetch } = useQuery({
-        queryKey: ["projects", username],
+        queryKey: ["blogs", username],
         queryFn: async () => {
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/${username}/blogs`, {
                 headers: {

@@ -66,7 +66,7 @@ export function DataTable<TData, TValue>({
         <div className="w-full">
             <div className="flex items-center py-4 ">
                 <Input
-                    placeholder="Filter Projects..."
+                    placeholder="Filter Forums..."
                     value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("title")?.setFilterValue(event.target.value)
@@ -76,7 +76,7 @@ export function DataTable<TData, TValue>({
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto">
-                            Select Columns
+                            Columns
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -139,7 +139,7 @@ export function DataTable<TData, TValue>({
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                    No Forum Found.
                                 </TableCell>
                             </TableRow>
                         )}

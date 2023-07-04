@@ -63,8 +63,8 @@ export function DataTable<TData, TValue>({
     })
 
     return (
-        <div className="w-full">
-            <div className="flex items-center py-4 ">
+        <div>
+            <div className="flex items-center gap-2 py-4">
                 <Input
                     placeholder="Filter Blogs..."
                     value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -76,7 +76,7 @@ export function DataTable<TData, TValue>({
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto">
-                            Select Columns
+                            Columns
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -102,14 +102,14 @@ export function DataTable<TData, TValue>({
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="border rounded-md">
+            <div className="overflow-x-scroll border rounded-md">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} >
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className="">
+                                        <TableHead key={header.id}>
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(

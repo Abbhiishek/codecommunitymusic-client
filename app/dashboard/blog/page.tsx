@@ -18,11 +18,6 @@ export default function DashboardBlog() {
     }
 
     return (
-        <div className="w-full overflow-hidden">
-            <div className="w-full ">
-                <BlogTable username={user?.data.username!} />
-            </div>
-
-        </div>
+        <BlogTable username={user?.data.username!} />
     )
 }
