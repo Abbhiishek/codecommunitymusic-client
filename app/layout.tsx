@@ -28,6 +28,9 @@ export default function RootLayout({
   return (
 
     <html lang="en" className='h-full dark'>
+      <head>
+        <meta name="google-site-verification" content="vWn1Ffc2bb-SMbm6Xka70exCU4hyITuirnjRNsDzcMs" />
+      </head>
       <body className={inter.className}>
         <NextTopLoader />
         <ReactQueryProvider>
