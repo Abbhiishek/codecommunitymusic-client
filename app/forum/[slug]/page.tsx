@@ -29,9 +29,7 @@ interface ForumSlugPageProps {
 export async function generateStaticParams() {
     const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/forums`)
     return data.data.map((project: any) => ({
-        params: {
-            projectSlug: project.slug
-        }
+        slug: project.slug
     }))
 }
 
@@ -66,7 +64,6 @@ function ForumSlugPage({ params }: ForumSlugPageProps) {
 
 
     const handleDelete = async () => {
-
         const res = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/delete/forums/${data?.data.slug}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('session_token')}`

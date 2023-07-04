@@ -13,7 +13,7 @@ export const useGetForum = (slug: string) => {
     const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ["forum", slug],
         queryFn: async () => {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/forums/${slug}`, {
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/forums/${slug}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('session_token')}`
                 }

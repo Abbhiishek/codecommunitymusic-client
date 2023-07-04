@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { Button } from "@/components/ui/button";
 import { IProjectData } from "@/types/Project";
-import Image from "next/image";
 import Link from "next/link";
 
 
@@ -16,13 +16,11 @@ const ProjectCard = ({
 
     return (
         <div className="grid justify-start grid-cols-7 gap-3 border-2 rounded-lg shadow-2xl ">
-            {/* <AspectRatio ratio={16 / 2}> */}
             <div className="flex items-center justify-center w-full h-full col-span-7 bg-cover rounded-lg lg:col-span-3 aspect-video">
-                <Image
-                    src={project.mainImage}
+                <img
+                    src={`https://wiidgets.vercel.app/api/banner?title=${project?.title}&bio=&twitter=${project?.author}`}
                     width={1000} height={100}
                     alt={project?.title} className="object-cover w-full h-full rounded-lg" />
-                {/* </AspectRatio> */}
             </div>
             <div className="flex flex-col items-start justify-start w-full col-span-7 p-2 lg:col-span-4 text-start">
                 <span className="text-2xl font-semibold text-start">{project.title}</span>
