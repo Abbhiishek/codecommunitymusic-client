@@ -34,9 +34,9 @@ const Page = () => {
     const router = useRouter()
     const pathname = usePathname()
     const { data: user, isLoading } = useGetSessionUser()
-    const [title, setTitle] = useState<string>(localStorage.getItem('title') || "")
-    const [tags, setTags] = useState<string[]>(JSON.parse(localStorage.getItem('tags') || "[]"))
-    const [content, setContent] = useState<string>(localStorage.getItem('content') || "")
+    const [title, setTitle] = useState<string>(typeof window !== 'undefined' ? localStorage.getItem('title') || "" : "")
+    const [tags, setTags] = useState<string[]>(typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('tags') || "") : [])
+    const [content, setContent] = useState<string>(typeof window !== 'undefined' ? localStorage.getItem('content') || "" : "")
     const [isdraft, setIsDraft] = useState<boolean>(true)
     const [isposting, setIsPosting] = useState<boolean>(false)
 
