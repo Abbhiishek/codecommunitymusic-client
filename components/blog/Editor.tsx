@@ -129,9 +129,9 @@ const Editor = ({
                         <MarkdownEditor
                             value={content}
                             onChange={(value) => setContent(value)}
-                            className="w-full h-screen lg:text-lg bg-inherit"
-                            basicSetup={true}
+                            className=" h-[600px] lg:text-lg lg:prose-lg dark:prose-invert"
                             spellCheck={true}
+                            enableScroll={true}
                             placeholder="Write your post here..."
                         />
                     </ScrollArea>

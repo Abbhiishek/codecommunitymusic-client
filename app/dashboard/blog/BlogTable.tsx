@@ -21,7 +21,7 @@ function BlogTable({ username }: { username: string }) {
     }
 
     return (
-        <div className="overflow-x-auto">
+        <div>
             <DataTable columns={columns} data={data!} />
         </div>
     )

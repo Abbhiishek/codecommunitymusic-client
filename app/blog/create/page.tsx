@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { nanoid } from "nanoid"
 import { usePathname, useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import * as z from "zod"
 
 
@@ -34,11 +34,19 @@ const Page = () => {
     const router = useRouter()
     const pathname = usePathname()
     const { data: user, isLoading } = useGetSessionUser()
-    const [title, setTitle] = useState<string>("")
-    const [tags, setTags] = useState<string[]>([])
-    const [content, setContent] = useState<string>("")
+    const [title, setTitle] = useState<string>(localStorage.getItem('title') || "")
+    const [tags, setTags] = useState<string[]>(JSON.parse(localStorage.getItem('tags') || "[]"))
+    const [content, setContent] = useState<string>(localStorage.getItem('content') || "")
     const [isdraft, setIsDraft] = useState<boolean>(true)
     const [isposting, setIsPosting] = useState<boolean>(false)
+
+    useEffect(() => {
+        localStorage.setItem('title', title)
+        localStorage.setItem('tags', JSON.stringify(tags))
+        localStorage.setItem('content', content)
+        localStorage.setItem('isdraft', JSON.stringify(isdraft))
+    }, [title, tags, content, isdraft])
+
     const { mutate: createPost } = useMutation({
         mutationFn: async ({
             title,
@@ -84,11 +92,13 @@ const Page = () => {
         },
         onSuccess: () => {
             // turn pathname /r/mycommunity/submit into /r/mycommunity
+            localStorage.removeItem('title')
+            localStorage.removeItem('tags')
+            localStorage.removeItem('content')
+            localStorage.removeItem('isdraft')
             const newPathname = pathname.split('/').slice(0, -1).join('/')
             router.push(newPathname)
-
             router.refresh()
-
             return toast({
                 description: 'Your post has been published.',
             })
@@ -155,7 +165,7 @@ const Page = () => {
     return (
         <div className="flex flex-col items-start gap-6">
             {/* form */}
-            <div className="grid w-full grid-cols-1 gap-4 lg:h-[400px] lg:grid-cols-10">
+            <div className="grid w-full grid-cols-1 gap-4 lg:h-[200px] lg:grid-cols-10">
                 <Editor
                     title={title}
                     tags={tags}

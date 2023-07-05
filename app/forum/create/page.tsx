@@ -18,7 +18,7 @@ import { Check, ChevronsUpDown, Loader } from "lucide-react";
 import { nanoid } from "nanoid";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 
 
@@ -53,6 +53,15 @@ function Page() {
     const [error, setError] = useState<z.ZodIssue[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+
+
+    useEffect(() => {
+        if (isSubmitted) {
+            toast({
+                title: "Please wait while we post your question",
+            })
+        }
+    }, [isSubmitted])
 
 
     if (loading) return (
