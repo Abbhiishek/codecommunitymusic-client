@@ -17,12 +17,12 @@ async function page() {
 
     const { data: learningpaths } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/alllearningpaths`)
     return (
-        <div className="w-full h-screen">
+        <div className="w-full min-h-screen">
             <h1 className="text-3xl font-extrabold capitalize">Explore Learning Paths</h1>
             <p className="font-light text-slate-500">
                 Learning paths are a collection of resources, Courses, Videos & Cheatsheets.
             </p>
-            <div className="grid gap-5 my-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-5 my-5 sm:grid-cols-2 lg:grid-cols-3">
                 {learningpaths.learning_paths?.map((item: LearningPath, index: string) => (
                     <LearningPathCard
                         key={index}
