@@ -125,13 +125,13 @@ const Editor = ({
                         </span>
                     </div>
                     <Separator />
-                    <ScrollArea className="w-full h-80 lg:h-full">
+                    <ScrollArea className="h-80 lg:h-full">
                         <MarkdownEditor
                             value={content}
                             onChange={(value) => setContent(value)}
                             className=" h-[600px] lg:text-lg lg:prose-lg dark:prose-invert"
                             spellCheck={true}
-                            enableScroll={true}
+                            enableScroll={false}
                             placeholder="Write your post here..."
                         />
                     </ScrollArea>

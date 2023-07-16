@@ -13,14 +13,9 @@ export default function MarketplaceLayout({
     children: React.ReactNode
 }) {
     return (
-        <section className="px-4 my-10 lg:container">
-            <h1 className="text-xl">Marketplace</h1>
-            <div className="grid grid-cols-12 gap-5 mt-5">
-                <MarketplaceSideNavBar />
-                <div className="lg:col-span-9 col-span-12 h-[900px] ">
-                    {children}
-                </div>
-            </div>
+        <section className="flex flex-col gap-5 p-2 mt-2 lg:container lg:mt-10 lg:flex-row">
+            <MarketplaceSideNavBar />
+            {children}
         </section>
     )
 }
