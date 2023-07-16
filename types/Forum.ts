@@ -1,3 +1,5 @@
+import { ShortUser } from "./Author";
+
 export interface IForumData {
     slug: string;
     title: string;
@@ -13,13 +15,6 @@ export interface IForumData {
 }
 
 
-export interface ShortUser {
-    username: string;
-    display_name: string;
-    profile_pic: string;
-    created_at: string;
-    karma: number;
-}
 
 
 export interface IForum {

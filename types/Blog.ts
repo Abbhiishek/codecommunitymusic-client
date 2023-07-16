@@ -1,4 +1,5 @@
-import { ShortUser } from "./Forum";
+import { ShortUser } from "./Author";
+
 
 export interface IBlogData {
     slug: string;
