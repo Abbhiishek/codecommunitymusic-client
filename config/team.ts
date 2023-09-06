@@ -9,7 +9,7 @@ export const Team = [
         name: 'Debojeet Karmakar',
         role: 'UI/UX Designer',
         imageUrl:
-            'https://avatars.githubusercontent.com/u/92775449?v=4',
+            'https://github.com/debojeet2004.png',
     }, {
         name: 'Chandan Pandey',
         role: 'Frontend Developer',
