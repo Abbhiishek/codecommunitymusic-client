@@ -9,7 +9,7 @@ import { useGetProjects } from "@/hooks/project/get-projects";
 import { useGetSessionUser } from "@/hooks/user/get-current-user";
 import { AuthRequiredError } from "@/lib/exceptions";
 import { IProjectData } from "@/types/Project";
-import { Loader2 } from "lucide-react";
+import { Loader2,PlusSquare } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -70,9 +70,9 @@ function Projects() {
                                 <Link href={`/login`} legacyBehavior>
                                     <Button
                                         variant={'secondary'}
-                                        size={"lg"}
-                                        className="inline-block">
-                                        Create Project
+                                        className="inline-flex">
+                                        <PlusSquare className="mx-2"/>
+                                        <span>Create</span>
                                     </Button>
                                 </Link>
                             }
