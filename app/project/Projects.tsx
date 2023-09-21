@@ -70,8 +70,9 @@ function Projects() {
                                 <Link href={`/login`} legacyBehavior>
                                     <Button
                                         variant={'secondary'}
+                                        size={"lg"}
                                         className="inline-block">
-                                        Login to Create Project
+                                        Create Project
                                     </Button>
                                 </Link>
                             }
