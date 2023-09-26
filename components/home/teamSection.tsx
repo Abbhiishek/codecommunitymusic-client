@@ -11,6 +11,11 @@ export default function TeamSection() {
                     <p className="mt-6 text-lg leading-8 ">
                         We are a team of passionate developers who are working on this project to make it a success.
                     </p>
+                    <span>
+                        <a href={"/contributors"} className='text-base hover:text-lg ease-in-out duration-200 font-semibold leading-7 text-indigo-600'>
+                            View Contributors <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </span>
                 </div>
                 <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
                     {Team.map((person) => (

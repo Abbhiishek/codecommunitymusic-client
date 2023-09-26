@@ -56,13 +56,13 @@ export default function AboutUsSection() {
                     </p>
                 </div>
                 <div className="max-w-2xl mx-auto mt-10 lg:mx-0 lg:max-w-none">
-                    <div className="grid grid-cols-1 text-base font-semibold leading-7 text-white gap-x-8 gap-y-6 sm:grid-cols-2 md:flex lg:gap-x-10">
+                    {/* <div className="grid grid-cols-1 text-base font-semibold leading-7 text-white gap-x-8 gap-y-6 sm:grid-cols-2 md:flex lg:gap-x-10">
                         {links.map((link) => (
                             <a key={link.name} href={link.href}>
                                 {link.name} <span aria-hidden="true">&rarr;</span>
                             </a>
                         ))}
-                    </div>
+                    </div> */}
                     <div className="grid grid-cols-1 gap-8 mt-16 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
                         {stats.map((stat) => (
                             <div key={stat.name} className="flex flex-col-reverse">
