@@ -36,6 +36,9 @@ const signupSchema = z.object({
         message: "Username must be at least 4 characters long"
     }).regex(
         /^[a-zA-Z0-9_]+$/,
+        {
+            message: "Username must be alphanumeric and underscore only"
+        }
     ),
 
 
