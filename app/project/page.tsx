@@ -1,6 +1,9 @@
+import axios from "axios";
 import Projects from "./Projects";
 
 import { Metadata } from 'next';
+
+export const revalidate = 20;
 
 export const metadata: Metadata = {
     title: 'Projects | Code Community Music',
@@ -28,9 +31,11 @@ export const metadata: Metadata = {
 }
 
 
-function Project() {
+async function Project() {
+
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
     return (
-        <Projects />
+        <Projects projectData={data?.data!} />
     )
 }
 
