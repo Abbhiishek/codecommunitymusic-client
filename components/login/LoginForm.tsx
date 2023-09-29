@@ -20,6 +20,8 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import { z } from "zod";
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+
 
 const loginSchema = z.object({
     email: z.string({
@@ -43,6 +45,7 @@ export default function LoginForm() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [formerror, setFormerror] = useState("")
     const [rememberMe, setRememberMe] = useState(false);
     const [loging, setLoging] = useState(false);
@@ -91,6 +94,10 @@ export default function LoginForm() {
         }
     }
 
+    const showPassHandler = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+
     const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoging(true);
@@ -134,17 +141,27 @@ export default function LoginForm() {
                                 value={email}
                                 id="username"
                                 onChange={(e) => setEmail(e.target.value)}
+                                className="pr-10"
                             />
                         </div>
-                        <div className="mb-4">
-                            <Label htmlFor="password" className="mb-2">Password</Label>
+                        <div className="mb-4 relative">
+                            <Label htmlFor="password" className="mb-2">
+                                Password
+                            </Label>
                             <Input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 id="password"
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
+                            <button
+                                type="button"
+                                className="absolute right-2 bottom-3 text-lg"
+                                onClick={showPassHandler}
+                            >
+                                {showPassword ? (<AiFillEye />) : (<AiFillEyeInvisible />)}
+                            </button>
                         </div>
                         <div>
                             <div className="flex items-center justify-between mb-3 space-x-2">

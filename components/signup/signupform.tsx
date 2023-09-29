@@ -21,8 +21,7 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 import { z } from "zod";
-
-
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 
 const signupSchema = z.object({
@@ -68,6 +67,7 @@ export default function SignUpForm() {
     const [username, setUsername] = useState("");
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [formerror, setFormerror] = useState("")
     const [rememberMe, setRememberMe] = useState(false);
     const [signing, setsigning] = useState(false);
@@ -124,6 +124,10 @@ export default function SignUpForm() {
         }
     }
 
+    const showPassHandler = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+
     const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setsigning(true);
@@ -177,18 +181,24 @@ export default function SignUpForm() {
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
-                        <div className="mb-4">
-                            <Label htmlFor="password" >Password</Label>
+                        <div className="mb-4 relative">
+                            <Label htmlFor="password" className="mb-2">
+                                Password
+                            </Label>
                             <Input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 id="password"
                                 placeholder="Password"
                                 value={password}
-                                onChange={(e) => {
-                                    setPasswordStrength(e.target.value.length);
-                                    setPassword(e.target.value);
-                                }}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
+                            <button
+                                type="button"
+                                className="absolute right-2 bottom-3 text-lg"
+                                onClick={showPassHandler}
+                            >
+                                {showPassword ? (<AiFillEye />) : (<AiFillEyeInvisible />)}
+                            </button>
                         </div>
                         <div className="flex items-center justify-between mb-3 space-x-2">
                             <div className="flex flex-row justify-start gap-2">
