@@ -21,7 +21,8 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { Eye, EyeOff } from 'lucide-react';
+
 
 
 const signupSchema = z.object({
@@ -124,10 +125,6 @@ export default function SignUpForm() {
         }
     }
 
-    const showPassHandler = () => {
-        setShowPassword((prevShowPassword) => !prevShowPassword);
-    };
-
     const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setsigning(true);
@@ -192,13 +189,14 @@ export default function SignUpForm() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <button
-                                type="button"
-                                className="absolute right-2 bottom-3 text-lg"
-                                onClick={showPassHandler}
-                            >
-                                {showPassword ? (<AiFillEye />) : (<AiFillEyeInvisible />)}
-                            </button>
+                            <div className="absolute right-2 bottom-1 bg-[#020817] text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-900 focus:outline-none">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? (<Eye />) : (<EyeOff />)}
+                                </button>
+                            </div>
                         </div>
                         <div className="flex items-center justify-between mb-3 space-x-2">
                             <div className="flex flex-row justify-start gap-2">
