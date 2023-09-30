@@ -28,11 +28,11 @@ const Editor = ({
     title,
     tags,
     content,
-    // isdraft,
+    isdraft,
     setTitle,
     setTags,
     setContent,
-    // setIsDraft,
+    setIsDraft,
 }: {
     title: string
     tags: string[]

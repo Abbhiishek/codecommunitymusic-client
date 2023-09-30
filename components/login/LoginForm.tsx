@@ -149,20 +149,24 @@ export default function LoginForm() {
                             <Label htmlFor="password" className="mb-2">
                                 Password
                             </Label>
+                            <div className="relative">
                             <Input
                                 type={showPassword ? "text" : "password"}
                                 id="password"
-                                placeholder="Password"
+                                placeholder="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                className="pl-3 pr-10 py-2 rounded-lg"
                             />
-                            <div className="absolute right-2 bottom-1 bg-[#020817] text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-900 focus:outline-none">
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
-                                    {showPassword ? (<Eye />) : (<EyeOff/>)}
-                                </button>
+                                <div className="absolute inset-y-0 right-2 flex items-center">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="bg-[#020817] text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-900 focus:outline-none"
+                                    >
+                                        {showPassword ? <EyeOff /> : <Eye />}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div>

@@ -77,7 +77,6 @@
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "gray-matter": "^4.0.3",
-    "icons": "^1.0.0",
     "js-search": "^2.0.1",
     "jsonwebtoken": "^9.0.0",
     "lucide-react": "^0.252.0",
