@@ -2,26 +2,21 @@
 
 import CreateProject from "@/components/project/createProjectCard";
 import ProjectCard from "@/components/project/projectCard";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useGetProjects } from "@/hooks/project/get-projects";
 import { useGetSessionUser } from "@/hooks/user/get-current-user";
-import { AuthRequiredError } from "@/lib/exceptions";
 import { IProjectData } from "@/types/Project";
-import { Loader2,PlusSquare } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
-function Projects() {
+function Projects({ projectData }: { projectData: IProjectData[] }) {
     const [search, setSearch] = useState('') // search query
     const { data: user } = useGetSessionUser()
-    const { data, isLoading: projectsloading, error } = useGetProjects()
+    // const { data, isLoading: projectsloading, error } = useGetProjects()
     const [filteredProjects, setFilteredProjects] = useState<IProjectData[]>([])
     useEffect(() => {
-        if (search === '') return setFilteredProjects(data!)
+        if (search === '') return setFilteredProjects(projectData!)
         setTimeout(() => {
-            const project = data?.filter(project => {
+            const project = projectData?.filter(project => {
                 const { title, description, subtitle, tech_stack, tags, author } = project;
                 const lowerSearch = search.toLowerCase().replaceAll(/[^\w\s]/g, '').replace(/\s/g, '').trim();
                 return (
@@ -35,17 +30,8 @@ function Projects() {
             })
             setFilteredProjects(project!)
         }, 400)
-    }, [search, data])
+    }, [search, projectData])
 
-
-    if (projectsloading) return (
-        <div className="flex items-center justify-center h-screen">
-            <Loader2 className="w-10 h-10 animate-spin" />
-        </div>
-    )
-    if (error) {
-        throw AuthRequiredError;
-    }
 
     return (
         <>
@@ -61,27 +47,13 @@ function Projects() {
                                 onChange={(e) => setSearch(e.target.value)}
                                 className="w-full lg:w-1/2"
                             />
-                            {user &&
-                                user?.data.is_verified ?
-                                <div className="">
-                                    <CreateProject />
-                                </div>
-                                :
-                                <Link href={`/login`} legacyBehavior>
-                                    <Button
-                                        variant={'secondary'}
-                                        className="inline-flex">
-                                        <PlusSquare className="mx-2"/>
-                                        <span>Create</span>
-                                    </Button>
-                                </Link>
-                            }
+                            <CreateProject />
                         </div>
                     </div>
                     {
                         filteredProjects?.length == 0 &&
                         <div className="flex flex-col items-center justify-center w-full lg:px-10 h-96">
-                            <h1 className="font-serif text-4xl font-semibold">No Projects Found</h1>
+                            <h1 className="font-serif text-4xl font-semibold">No Projects Found 😥</h1>
                             <Separator className="my-4" />
                             <p className="text-gray-400">Create a project to get started</p>
                         </div>
