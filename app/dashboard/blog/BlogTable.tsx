@@ -12,7 +12,8 @@ function BlogTable({ username }: { username: string }) {
 
 
     if (dataloading) {
-        return <div className="flex flex-col w-full gap-2">
+        return 
+        <div className="flex flex-col w-full gap-2">
             <h1>Hang Tight 👀! we are crunching your data.</h1>
             <Skeleton className="w-full h-12" />
             <Skeleton className="w-full h-12" />
