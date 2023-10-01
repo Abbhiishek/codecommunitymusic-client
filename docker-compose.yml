@@ -1,12 +1,13 @@
-version: '1'
+version: '2'
 
 services:
-  app:
-    image: 'docker-nextjs-dev'
+  frontend:
+    image: 'ccm-frontend'
     build: .
     ports:
       - '3000:3000'
-    volumes:
-      - ./app:/app/app
-      - ./public:/app/public
-      - ./components:/app/components
+    networks:
+      - codecommunitymusic-network
+
+networks:
+  codecommunitymusic-network:
