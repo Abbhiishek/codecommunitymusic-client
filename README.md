@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+> # WELCOME TO CODE COMMUNITY MUSIC CLIENT REPOSITORY.
+### **Who are we?**
+**ANS:** Code Community Music is a community driven platform for developers to share and collaborate on projects and ideas. We are a group of developers who are passionate about solving problems and building solutions.
+It started as a small summer vacation project and has now grown into a full fledged community.
 
-## Getting Started
+#### [Explore us](https://codecommunitymusic.vercel.app/)
 
-First, run the development server:
+![Preview Image](./public/dashboard.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Feel absolutely welcome to make a valuable contribution.
+### **Local Environment Setup:**
+**1. Clone our Repository:**
+
+```
+git clone https://github.com/Abbhiishek/codecommunitymusic-client.git 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**2. Install necessary Packages:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+yarn install 
+```
+or
+```
+npm install
+```
+> **Recommendation**: We kindly request you to use the **yarn** package manager.[Learn yarn](https://yarnpkg.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**3.Connect with Backend:**
 
-## Learn More
+Add Backend urls into ``` .env ```
+```
+APP_URL=http://localhost:3000/
+NEXT_PUBLIC_BACKEND_URL=http://127.0.0.1:8000/
+BACKEND_URL=http://127.0.0.1:8000/
+```
+> **Warning:** Ports :8000/3000 depend on local server. So carefully follow your own terminal and paste the exact port number. [Learn More.](https://github.com/Abbhiishek/codecommunitymusic-server/)
 
-To learn more about Next.js, take a look at the following resources:
+**4. Host on your Local Machine:**
+```
+yarn run dev
+or 
+npm run dev
+```
+---
+###   I hope these instructions help you set up your local environment. If you are facing any issues regarding the setup, please feel free to share them with us.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+> We also have backend setup instructions. Please go to the backend repository to learn more.
+[CodeCommunityMusic-Server.](https://github.com/Abbhiishek/codecommunitymusic-server/)
