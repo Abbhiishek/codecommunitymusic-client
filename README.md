@@ -1,4 +1,5 @@
-> # WELCOME TO CODE COMMUNITY MUSIC CLIENT REPOSITORY.
+# WELCOME TO CODE COMMUNITY MUSIC CLIENT REPOSITORY.
+
 ### **Who are we?**
 **ANS:** Code Community Music is a community driven platform for developers to share and collaborate on projects and ideas. We are a group of developers who are passionate about solving problems and building solutions.
 It started as a small summer vacation project and has now grown into a full fledged community.
