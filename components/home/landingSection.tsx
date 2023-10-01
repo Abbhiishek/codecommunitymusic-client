@@ -6,6 +6,10 @@ function LandingSection() {
     return (
         <div className="relative px-6 isolate pt-14 lg:px-8 ">
             <div className="max-w-2xl py-32 mx-auto sm:py-48 lg:py-56">
+                {/* <Particles
+                    className="absolute inset-0 -z-10 animate-fade-in"
+                    quantity={100}
+                /> */}
                 <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                     <div className="relative px-3 py-1 text-sm leading-6 text-white rounded-full ring-1 ring-gray-200/20 hover:ring-gray-100">
                         Announcing the moto behind CodeCommunity&Music{' '}
@@ -35,7 +39,6 @@ function LandingSection() {
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
