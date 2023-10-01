@@ -18,4 +18,4 @@ export const Contributor: IContributor[] = [
         githubUsername: "Abbhiishek",
         rewviewWords: "hola! Happy Hacking 2023"
     }
-] as const;
+];
