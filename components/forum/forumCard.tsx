@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 
 function ForumCard({ forum }: { forum: IForumData }) {
     return (
-        <Link href={`/forum/${forum.slug}`}>
+        <Link href={`/forum/${forum.slug}`} legacyBehavior passHref className="cursor-pointer">
             <div className="flex flex-col w-full gap-3 p-5 border-4 rounded-xl">
                 <div className="flex flex-col gap-3 lg:flex-row">
                     <div className="">
