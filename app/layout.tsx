@@ -3,8 +3,8 @@ import AuthProvider from '@/app/NextAuthProvider';
 import NavBar from '@/components/navbar/navBar';
 import { Toaster } from '@/components/ui/toaster';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Analytics } from '@vercel/analytics/react';
 import { Inter } from 'next/font/google';
-
 import NextTopLoader from 'nextjs-toploader';
 import { ReactQueryProvider } from './ReactQueryProvider';
 import './globals.css';
@@ -36,7 +36,10 @@ export default function RootLayout({
         <ReactQueryProvider>
           <AuthProvider session={Session}>
             <NavBar />
-            <main className='h-full'>{children}</main>
+            <main className='h-full'>
+              {children}
+              <Analytics />
+            </main>
             <Toaster />
             <ReactQueryDevtools />
           </AuthProvider>

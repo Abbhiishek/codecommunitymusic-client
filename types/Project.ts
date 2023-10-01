@@ -21,6 +21,13 @@ export interface IProjectData {
     views: any[];
 }
 
+export interface IProjects {
+    data: IProjectData[];
+    messsage: string;
+    server: string;
+}
+
+
 export interface IProject {
     data: {
         id: number;

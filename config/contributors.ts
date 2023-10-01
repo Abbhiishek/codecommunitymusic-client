@@ -1,12 +1,20 @@
 import IContributors from "@/types/Contrbutor";
 
-export const Contributors : IContributors[] = [
+
+export const Contributor: IContributor[] = [
     {
         name: 'Abhishek kushwaha',
         role: 'Full Stack Developer',
-        issueLink: "https://github.com/Abbhiishek/codecommunitymusic-client/issues/",
-        prLink: "demo-data",
-        githubAccountUrl: "https://github.com/Abbhiishek",
+        contributions: [
+            {
+                title: "t",
+                description: "DESCRIPTIONS",
+                issueNumber: 0,
+                prNumber: 0,
+                ScopeofChange: "UI/UX"
+            }
+        ],
+        githubUsername: "Abbhiishek",
         rewviewWords: "hola! Happy Hacking 2023"
     },
     {
