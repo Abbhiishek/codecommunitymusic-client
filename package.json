@@ -68,6 +68,7 @@
     "@uiw/react-markdown-editor": "^5.11.1",
     "@uiw/react-md-editor": "^3.23.3",
     "@uploadthing/react": "^5.1.0",
+    "@vercel/analytics": "^1.0.2",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "babel-plugin-transform-remove-imports": "^1.7.0",
