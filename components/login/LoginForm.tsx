@@ -20,6 +20,9 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import { z } from "zod";
+import { Eye, EyeOff } from 'lucide-react';
+
+
 
 const loginSchema = z.object({
     email: z.string({
@@ -43,6 +46,7 @@ export default function LoginForm() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [formerror, setFormerror] = useState("")
     const [rememberMe, setRememberMe] = useState(false);
     const [loging, setLoging] = useState(false);
@@ -91,6 +95,10 @@ export default function LoginForm() {
         }
     }
 
+    const showPassHandler = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+
     const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoging(true);
@@ -134,17 +142,32 @@ export default function LoginForm() {
                                 value={email}
                                 id="username"
                                 onChange={(e) => setEmail(e.target.value)}
+                                className="pr-10"
                             />
                         </div>
-                        <div className="mb-4">
-                            <Label htmlFor="password" className="mb-2">Password</Label>
+                        <div className="mb-4 relative">
+                            <Label htmlFor="password" className="mb-2">
+                                Password
+                            </Label>
+                            <div className="relative">
                             <Input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 id="password"
-                                placeholder="Password"
+                                placeholder="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                className="pr-10"
                             />
+                                <div className="absolute bottom-1 right-2 flex items-center">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="bg-[#020817] text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-900 focus:outline-none"
+                                    >
+                                        {showPassword ? <EyeOff /> : <Eye />}
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <div className="flex items-center justify-between mb-3 space-x-2">

@@ -1,4 +1,3 @@
-
 'use client';
 
 
@@ -21,7 +20,7 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 import { z } from "zod";
-
+import { Eye, EyeOff } from 'lucide-react';
 
 
 
@@ -68,6 +67,7 @@ export default function SignUpForm() {
     const [username, setUsername] = useState("");
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [formerror, setFormerror] = useState("")
     const [rememberMe, setRememberMe] = useState(false);
     const [signing, setsigning] = useState(false);
@@ -177,10 +177,12 @@ export default function SignUpForm() {
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
-                        <div className="mb-4">
-                            <Label htmlFor="password" >Password</Label>
+                        <div className="mb-4 relative">
+                            <Label htmlFor="password" className="mb-2">
+                                Password
+                            </Label>
                             <Input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 id="password"
                                 placeholder="Password"
                                 value={password}
@@ -188,7 +190,17 @@ export default function SignUpForm() {
                                     setPasswordStrength(e.target.value.length);
                                     setPassword(e.target.value);
                                 }}
+                                className="pr-10"
                             />
+                            <div className="absolute bottom-1 right-2 flex items-center">
+                                <button
+                                    className="bg-[#020817] text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-900 focus:outline-none"
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? (<Eye />) : (<EyeOff />)}
+                                </button>
+                            </div>
                         </div>
                         <div className="flex items-center justify-between mb-3 space-x-2">
                             <div className="flex flex-row justify-start gap-2">
