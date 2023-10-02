@@ -11,14 +11,14 @@ interface ProjectProps {
 }
 
 export async function generateStaticParams() {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/projects`)
     return data.data.map((project: any) => ({
         projectSlug: project.slug
     }))
 }
 
 export async function generateMetadata({ params }: ProjectProps) {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/projects`)
     const project: IProjectData = data.data.find((project: any) => project.slug === params.projectSlug)
     if (!project) return notFound()
     return {

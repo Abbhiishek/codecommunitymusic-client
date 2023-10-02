@@ -20,7 +20,7 @@ interface ILearningPathCard {
 
 async function MarketPlace() {
 
-    const { data: allLearningPath } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/alllearningpaths`)
+    const { data: allLearningPath } = await axios.get(`${process.env.BACKEND_URL}/list/alllearningpaths`)
 
 
     return (

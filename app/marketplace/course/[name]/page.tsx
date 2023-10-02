@@ -18,14 +18,14 @@ interface CourseProps {
 }
 
 export async function generateStaticParams() {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/allcourses`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/allcourses`)
     return data.courses.map((course: Course) => ({
         name: course.slug
     }))
 }
 
 export async function generateMetadata({ params }: CourseProps) {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/courses/${params.name}`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/courses/${params.name}`)
     const course: Course = data.course
     if (!course) notFound()
     return {
@@ -43,7 +43,7 @@ async function Page({ params }: CourseProps) {
         data: {
             course: Course
         }
-    } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/courses/${params.name}`)
+    } = await axios.get(`${process.env.BACKEND_URL}/list/courses/${params.name}`)
 
     return (
         <div className="w-full h-screen">

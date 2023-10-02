@@ -28,7 +28,7 @@ interface BlogSlugProps {
 
 
 export async function generateStaticParams() {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/blogs`)
     return data.data.map((blog: IBlogData) => ({
         slug: blog.slug
     }))
@@ -36,7 +36,7 @@ export async function generateStaticParams() {
 
 
 export async function generateMetadata({ params }: BlogSlugProps) {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/blogs`)
     const blog: IBlogData = data.data.find((blog: any) => blog.slug === params.slug)
     if (!blog) notFound()
     return {
@@ -65,7 +65,7 @@ export async function generateMetadata({ params }: BlogSlugProps) {
 
 
 async function BlogSlug({ params }: BlogSlugProps) {
-    const { data, } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs/${params.slug}`)
+    const { data, } = await axios.get(`${process.env.BACKEND_URL}/list/blogs/${params.slug}`)
     if (!data) {
         return (
             <>

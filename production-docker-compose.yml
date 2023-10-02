@@ -3,7 +3,9 @@ version: '2'
 services:
   frontend:
     image: 'ccm-frontend'
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.Production
     ports:
       - '3000:3000'
     networks:

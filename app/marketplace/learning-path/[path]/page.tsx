@@ -20,14 +20,14 @@ interface LearningPathProps {
 }
 
 export async function generateStaticParams() {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/alllearningpaths`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/alllearningpaths`)
     return data.learning_paths.map((learningpath: LearningPath) => ({
         path: learningpath.slug
     }))
 }
 
 export async function generateMetadata({ params }: LearningPathProps) {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/learningpath/${params.path}`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/learningpath/${params.path}`)
     const learningpath: LearningPath = data.learning_path
     if (!learningpath) notFound()
     return {
@@ -46,7 +46,7 @@ async function Page({ params }: LearningPathProps) {
         data: {
             learning_path: LearningPath
         }
-    } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/learningpath/${params.path}`)
+    } = await axios.get(`${process.env.BACKEND_URL}/list/learningpath/${params.path}`)
 
 
 
