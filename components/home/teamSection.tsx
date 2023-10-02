@@ -1,9 +1,13 @@
+"use client"
+
 import { Team } from '@/config/team'
 import Image from 'next/image'
+import EarthRotationModel from '../3dModels/Earth'
 
 
 export default function TeamSection() {
     return (
+
         <div className="py-24 sm:py-32">
             <div className="grid px-6 mx-auto max-w-7xl gap-x-8 gap-y-20 lg:px-8 xl:grid-cols-3">
                 <div className="max-w-2xl">
