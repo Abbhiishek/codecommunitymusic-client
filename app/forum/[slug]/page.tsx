@@ -27,7 +27,7 @@ interface ForumSlugPageProps {
 }
 
 export async function generateStaticParams() {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/forums`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/forums`)
     return data.data.map((project: any) => ({
         slug: project.slug
     }))

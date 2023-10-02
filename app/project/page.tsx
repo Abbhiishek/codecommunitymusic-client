@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 async function Project() {
 
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/projects`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/projects`)
     return (
         <Projects projectData={data?.data!} />
     )
