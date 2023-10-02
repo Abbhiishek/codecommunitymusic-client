@@ -1,21 +1,20 @@
-
-import { IContributor } from "@/types/Contributors";
-
+import { IContributor } from '@/types/Contributors';
 
 export const Contributor: IContributor[] = [
-    {
-        name: 'Abhishek kushwaha',
-        role: 'Full Stack Developer',
-        contributions: [
-            {
-                title: "t",
-                description: "DESCRIPTIONS",
-                issueNumber: 0,
-                prNumber: 0,
-                ScopeofChange: "UI/UX"
-            }
-        ],
-        githubUsername: "Abbhiishek",
-        rewviewWords: "hola! Happy Hacking 2023"
-    }
+  {
+    name: 'Pratyush Singha',
+    role: 'Frontend Developer',
+    contributions: [
+      {
+        title: 'add show/hide password feature for sign-in and login page',
+        description:
+          'Implemented a show/hide password feature for the sign-in and login pages to enhance user experience.',
+        issueNumber: 21,
+        prNumber: 27,
+        ScopeofChange: 'UI/UX',
+      },
+    ],
+    githubUsername: 'pratyushsingha',
+    rewviewWords: 'hola! Happy Hacking 2023',
+  },
 ];
