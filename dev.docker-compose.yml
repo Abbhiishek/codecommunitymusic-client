@@ -1,0 +1,14 @@
+version: '1'
+services:
+  frontend:
+    image: 'frontend'
+    build:
+      context: .
+      dockerfile: Dockerfile.Dev
+    ports:
+      - 3000:3000
+    environment:
+      APP_URL: ${APP_URL}
+      NODE_ENV: development
+      NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL}
+      BACKEND_URL: ${BACKEND_URL}
