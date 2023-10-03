@@ -6,11 +6,11 @@ export const Contributor: IContributor[] = [
     role: 'Frontend Developer',
     contributions: [
       {
-        title: 'add show/hide password feature for sign-in and login page',
+        title: 'Enhance Password Strength Validation',
         description:
-          'Implemented a show/hide password feature for the sign-in and login pages to enhance user experience.',
-        issueNumber: 21,
-        prNumber: 27,
+          'Implemented a visual experience that shown user that resembles the password strength..Like a long strip which turns red,yellow,blue,green as user password is more secured',
+        issueNumber: 29,
+        prNumber: 30,
         ScopeofChange: 'UI/UX',
       },
     ],

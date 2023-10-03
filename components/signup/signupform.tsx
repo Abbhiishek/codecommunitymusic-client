@@ -278,30 +278,9 @@ export default function SignUpForm() {
     );
 }
 
-
-// const PasswordStrengthBar = ({ passwordreset }: {
-//     passwordreset: number
-// }) => {
-
-
-//     return (
-//         <div className="flex flex-row justify-start gap-2">
-//             <div
-//                 className={
-//                     `h-2 w-full rounded-full ${passwordreset >= 1 ? "bg-green-500" : "bg-gray-300"}`
-//                 }
-//             >
-
-//             </div>
-//         </div>
-
-//     )
-// }
-
 function PasswordStrengthBar({ passStrength }: {
     passStrength: number,
 }) {
-    console.log(passStrength)
     let barWidth = 0;
 
     switch (passStrength) {
@@ -320,7 +299,6 @@ function PasswordStrengthBar({ passStrength }: {
         default:
             break;
     }
-
 
     const barColor = () => {
         switch (passStrength) {
@@ -345,7 +323,7 @@ function PasswordStrengthBar({ passStrength }: {
         transition: "width 0.5s",
     })
     return (
-        <div className="bg-[#444654] rounded-xl h-2" >
+        <div className="bg-slate-800 rounded-xl h-2" >
             <div style={changeColor()}></div>
         </div>
 
