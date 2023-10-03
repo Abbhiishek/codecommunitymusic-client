@@ -66,12 +66,13 @@ export default function SignUpForm() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
-    const [passStrength, setPassStrength] = useState(0);
+    const [passStrength, setPassStrength] = useState(-1);
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [formerror, setFormerror] = useState("")
     const [rememberMe, setRememberMe] = useState(false);
     const [signing, setsigning] = useState(false);
+
 
     const session_token = typeof window !== "undefined" ? localStorage.getItem("session_token") : null;
 
@@ -198,8 +199,13 @@ export default function SignUpForm() {
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => {
-                                    setPassStrength(passwordStrength(e.target.value).id);
                                     setPassword(e.target.value);
+                                    {
+                                        e.target.value !== "" ?
+                                            setPassStrength(passwordStrength(e.target.value).id)
+                                            :
+                                            setPassStrength(-1)
+                                    }
                                 }}
                                 className="pr-10"
                             />
@@ -293,21 +299,39 @@ export default function SignUpForm() {
 // }
 
 function PasswordStrengthBar({ passStrength }: {
-    passStrength: number
+    passStrength: number,
 }) {
-    const barWidth = passStrength * 100 / 3;
-    // console.log(barWidth)
+    console.log(passStrength)
+    let barWidth = 0;
+
+    switch (passStrength) {
+        case 0:
+            barWidth = 25;
+            break;
+        case 1:
+            barWidth = 50;
+            break;
+        case 2:
+            barWidth = 75;
+            break;
+        case 3:
+            barWidth = 100;
+            break;
+        default:
+            break;
+    }
+
 
     const barColor = () => {
         switch (passStrength) {
             case 0:
-                return "#828282"
-            case 1:
                 return "#EA1111"
-            case 2:
+            case 1:
                 return "#FFD700"
+            case 2:
+                return "#00BFFF"
             case 3:
-                return "#00b500"
+                return "#00FF00"
             default:
                 return "none"
         }
