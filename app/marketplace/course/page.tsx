@@ -3,7 +3,7 @@ import { Course } from "@/types/Course"
 import axios from "axios"
 
 async function Courses() {
-    const { data: courses } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/allcourses`)
+    const { data: courses } = await axios.get(`${process.env.BACKEND_URL}/list/allcourses`)
     return (
         <div className="w-full h-screen">
             <h1 className="text-3xl font-extrabold capitalize">Explore Courses</h1>

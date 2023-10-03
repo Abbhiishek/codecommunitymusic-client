@@ -1,7 +1,6 @@
 "use client"
 
 import ContributorCard from "@/components/Contributor/ContributorsCard"
-import WaveAnimations from "@/components/Waves"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Contributor } from "@/config/contributors"
@@ -71,7 +70,7 @@ function Page() {
                 </div>
 
 
-                <div className="grid w-full gap-3 lg:grid-cols-2">
+                <div className="grid w-full gap-3 lg:grid-cols-3 mt-10">
                     {
                         FilterContributors.map((contributor, index) => {
                             return (
@@ -80,8 +79,9 @@ function Page() {
                         })
                     }
                 </div>
+
             </div>
-            <WaveAnimations />
+
         </>
     )
 }

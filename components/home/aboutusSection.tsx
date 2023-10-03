@@ -1,3 +1,6 @@
+import Link from "next/link"
+import { Button } from "../ui/button"
+
 const links = [
     { name: 'Open roles', href: '#' },
     { name: 'Internship program', href: '#' },
@@ -15,9 +18,9 @@ export default function AboutUsSection() {
     return (
         <div className="relative py-24 overflow-hidden bg-gray-900 isolate sm:py-32">
             <img
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
+                src="https://images.unsplash.com/photo-1442504028989-ab58b5f29a4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
                 alt=""
-                className="absolute inset-0 object-cover object-right w-full h-full -z-10 md:object-center"
+                className="absolute inset-0 object-cover object-right w-full h-full -z-10 md:object-center brightness-50 grayscale"
             />
             <div
                 className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
@@ -45,15 +48,24 @@ export default function AboutUsSection() {
             </div>
             <div className="px-6 mx-auto max-w-7xl lg:px-8">
                 <div className="max-w-2xl mx-auto lg:mx-0">
-                    <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Know about us</h2>
+                    <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Our Story</h2>
                     <p className="mt-6 text-lg leading-8 text-gray-300">
                         Code Community Music is a community driven platform for developers to share and collaborate on
                         projects and ideas. We are a group of developers who are passionate about solving problems and
                         building solutions.
-
-                        <br />
-                        It started as a small summer vacation project and has now grown into a full fledged community.
                     </p>
+                    <Link
+                        href={"/our-story"}
+                        passHref
+                        legacyBehavior
+                    >
+                        <Button
+                            className="mt-4"
+                        >
+                            Know More About Us &rarr;
+                        </Button>
+                    </Link>
+
                 </div>
                 <div className="max-w-2xl mx-auto mt-10 lg:mx-0 lg:max-w-none">
                     {/* <div className="grid grid-cols-1 text-base font-semibold leading-7 text-white gap-x-8 gap-y-6 sm:grid-cols-2 md:flex lg:gap-x-10">
