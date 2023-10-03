@@ -21,6 +21,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { Eye, EyeOff } from 'lucide-react';
+import { passwordStrength } from "check-password-strength";
 
 
 
@@ -65,7 +66,7 @@ export default function SignUpForm() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
-    const [passwordStrength, setPasswordStrength] = useState(0);
+    const [passStrength, setPassStrength] = useState(0);
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [formerror, setFormerror] = useState("")
@@ -93,7 +94,7 @@ export default function SignUpForm() {
                 password
             });
             console.log("The signup mutation ", data);
-            if (data.status === "success") {
+            if (data && data.status === "success") {
                 setsigning(false);
                 toast({
                     title: `Welcome ${data.data.username} 👋 to Code Community Music`,
@@ -127,22 +128,32 @@ export default function SignUpForm() {
     const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setsigning(true);
-        // alert("signup form submitted");
-        const result = signupSchema.safeParse({
-            username: username,
-            email: email,
-            password: password
-        });
-        if (!result.success) {
+        if (passStrength < 3) {
             setsigning(false);
-            setFormerror(result.error.errors[0].message);
+            setFormerror(`password is ${passwordStrength(password).value},Choose a stronger password`);
             toast({
                 title: "Validation Error!!",
-                description: result.error.errors[0].message,
-            })
-        } else {
-            // console.log(result.data);
-            signupMutationwithusername.mutate();
+                description: `password is ${passwordStrength(password).value},Please choose a stronger password`,
+            });
+        }
+        else {
+            // alert("signup form submitted");
+            const result = signupSchema.safeParse({
+                username: username,
+                email: email,
+                password: password
+            });
+            if (!result.success) {
+                setsigning(false);
+                setFormerror(result.error.errors[0].message);
+                toast({
+                    title: "Validation Error!!",
+                    description: result.error.errors[0].message,
+                })
+            } else {
+                // console.log(result.data);
+                signupMutationwithusername.mutate();
+            }
         }
     }
 
@@ -187,7 +198,7 @@ export default function SignUpForm() {
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => {
-                                    setPasswordStrength(e.target.value.length);
+                                    setPassStrength(passwordStrength(e.target.value).id);
                                     setPassword(e.target.value);
                                 }}
                                 className="pr-10"
@@ -201,6 +212,9 @@ export default function SignUpForm() {
                                     {showPassword ? (<Eye />) : (<EyeOff />)}
                                 </button>
                             </div>
+                        </div>
+                        <div className="mb-4">
+                            <PasswordStrengthBar passStrength={passStrength} />
                         </div>
                         <div className="flex items-center justify-between mb-3 space-x-2">
                             <div className="flex flex-row justify-start gap-2">
@@ -259,20 +273,56 @@ export default function SignUpForm() {
 }
 
 
-const PasswordStrengthBar = ({ passwordreset }: {
-    passwordreset: number
-}) => {
+// const PasswordStrengthBar = ({ passwordreset }: {
+//     passwordreset: number
+// }) => {
 
 
+//     return (
+//         <div className="flex flex-row justify-start gap-2">
+//             <div
+//                 className={
+//                     `h-2 w-full rounded-full ${passwordreset >= 1 ? "bg-green-500" : "bg-gray-300"}`
+//                 }
+//             >
+
+//             </div>
+//         </div>
+
+//     )
+// }
+
+function PasswordStrengthBar({ passStrength }: {
+    passStrength: number
+}) {
+    const barWidth = passStrength * 100 / 3;
+    // console.log(barWidth)
+
+    const barColor = () => {
+        switch (passStrength) {
+            case 0:
+                return "#828282"
+            case 1:
+                return "#EA1111"
+            case 2:
+                return "#FFD700"
+            case 3:
+                return "#00b500"
+            default:
+                return "none"
+        }
+    }
+
+    const changeColor = () => ({
+        width: `${barWidth}%`,
+        background: barColor(),
+        height: "7px",
+        borderRadius: "20px",
+        transition: "width 0.5s",
+    })
     return (
-        <div className="flex flex-row justify-start gap-2">
-            <div
-                className={
-                    `h-2 w-full rounded-full ${passwordreset >= 1 ? "bg-green-500" : "bg-gray-300"}`
-                }
-            >
-
-            </div>
+        <div className="bg-[#444654] rounded-xl h-2" >
+            <div style={changeColor()}></div>
         </div>
 
     )
