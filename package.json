@@ -113,6 +113,7 @@
     "typescript": "5.0.4",
     "uploadthing": "^5.1.0",
     "zod": "^3.21.4"
+
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
