@@ -30,6 +30,14 @@ export const Contributor: IContributor[] = [
         ScopeofChange: 'Documentation',
       },
       {
+        title: 'add show/hide password feature for sign-in and login page',
+        description:
+          'Implemented a show/hide password feature for the sign-in and login pages to enhance user experience.',
+        issueNumber: 21,
+        prNumber: 27,
+        ScopeofChange: 'UI/UX',
+      },
+      {
         title: 'Enhance Password Strength Validation',
         description:
           'Implemented a visual experience that shown user that resembles the password strength,Like a long strip which turns red,yellow,blue,green as user password is more secured',
