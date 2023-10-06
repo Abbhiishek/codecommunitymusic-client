@@ -232,7 +232,7 @@ export default function SignUpForm() {
                                     htmlFor="terms"
                                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                 >
-                                    Remeber me
+                                    Remember me
                                 </label>
                             </div>
 
