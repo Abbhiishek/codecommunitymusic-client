@@ -430,3 +430,20 @@ pre {
   color: rgb(156, 163, 175);
   content: attr(line);
 }
+
+
+
+.animateborder{
+  animation: borderglowanimation 12s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes borderglowanimation {
+  from {
+    transform: rotateZ('360deg');
+  }
+  to {
+    transform: rotateZ('0deg');
+  }
+}

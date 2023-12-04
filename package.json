@@ -79,6 +79,7 @@
     "date-fns": "^2.30.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "eventsource-parser": "^1.1.1",
     "gray-matter": "^4.0.3",
     "js-search": "^2.0.1",
     "jsonwebtoken": "^9.0.0",

@@ -65,7 +65,7 @@ export async function generateMetadata({ params }: BlogSlugProps) {
 
 
 async function BlogSlug({ params }: BlogSlugProps) {
-    const { data, } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs/${params.slug}`)
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs/${params.slug}`)
     if (!data) {
         return (
             <>

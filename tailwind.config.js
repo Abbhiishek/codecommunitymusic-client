@@ -123,6 +123,20 @@ module.exports = {
             opacity: "100%",
           },
         },
+        "text-hero": {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center',
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center',
+          },
+        },
+        "borderglowanimation": {
+          '0% , 100%': { transform: 'rotate(10deg)' },
+          '50%': { transform: 'rotate(0deg)' },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -131,6 +145,8 @@ module.exports = {
         title: "title 3s ease-out forwards",
         "fade-left": "fade-left 3s ease-in-out forwards",
         "fade-right": "fade-right 3s ease-in-out forwards",
+        "text-hero": "text-hero 3s ease-in-out infinite",
+        "border-glow": "borderglowanimation 3s ease-in-out infinite",
       },
     },
   },
