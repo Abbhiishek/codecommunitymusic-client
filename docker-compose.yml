@@ -1,13 +1,16 @@
-version: '2'
-
+version: '3.8'
 services:
-  frontend:
-    image: 'ccm-frontend'
-    build: .
+  app:
+    image: ccm-frontend
+    build:
+      context: ./
+      target: dev
+      dockerfile: dockerfile
+    environment:
+      NEXT_PUBLIC_BACKEND_URL: https://localhost:8000/
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
     ports:
       - '3000:3000'
-    networks:
-      - codecommunitymusic-network
-
-networks:
-  codecommunitymusic-network:

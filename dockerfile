@@ -1,35 +1,39 @@
 # ## install dependencies
 
-FROM node:18-alpine AS deps
+FROM node:18-alpine AS base
+RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 COPY package*.json yarn.lock ./
-ARG NODE_ENV
-ENV NODE_ENV $NODE_ENV
-RUN yarn install
+EXPOSE 3000
 
-
-
-FROM node:18-alpine AS prod-builder
+FROM base as builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY app ./app
-COPY components ./components
-COPY lib ./lib
-COPY .env.local ./.env
-COPY hooks ./hooks
-COPY config ./config
-COPY types ./types
-COPY styles ./styles
-COPY public ./public
-COPY package.json next.config.js tsconfig.json ./
+COPY . .
 RUN yarn run build
 
 
-
-FROM node:18-alpine
+FROM base as production
 WORKDIR /app
-COPY --from=prod-builder /app/.next ./.next
-COPY --from=prod-builder /app/public ./public
-COPY --from=prod-builder /app/node_modules ./node_modules
-COPY --from=prod-builder /app/package.json ./
-CMD ["yarn", "run", "start"]
+
+ENV NODE_ENV=production
+RUN yarn install --frozen-lockfile
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+USER nextjs
+
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/public ./public
+
+CMD yarn start
+
+
+
+FROM base as dev
+ENV NODE_ENV=development
+RUN yarn install 
+COPY . .
+CMD yarn run dev
