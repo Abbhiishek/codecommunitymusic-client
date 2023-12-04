@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 async function ForumPage() {
-    const { data: forums, } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/forums`)
+    const { data: forums, } = await axios.get(`${process.env.BACKEND_URL}/list/forums`)
     return (
         <div className="container flex flex-col gap-5 pt-10">
             <div className="flex flex-col items-center justify-between w-full gap-5 md:flex-row">

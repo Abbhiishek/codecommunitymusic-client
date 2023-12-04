@@ -15,7 +15,7 @@ export async function generateMetadata() {
 
 async function page() {
 
-    const { data: learningpaths } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/alllearningpaths`)
+    const { data: learningpaths } = await axios.get(`${process.env.BACKEND_URL}/list/alllearningpaths`)
     return (
         <div className="w-full min-h-screen">
             <h1 className="text-3xl font-extrabold capitalize">Explore Learning Paths</h1>

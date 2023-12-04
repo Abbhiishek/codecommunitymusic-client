@@ -1,10 +1,14 @@
+"use client";
+
 import Link from "next/link"
+import RollerCoasterModel from "../3dModels/RollerCoaster"
 
 
 
 function LandingSection() {
     return (
-        <div className="relative px-6 isolate pt-14 lg:px-8 ">
+        <div className="relative isolate">
+            <RollerCoasterModel />
             <div className="max-w-2xl py-32 mx-auto sm:py-48 lg:py-56">
                 {/* <Particles
                     className="absolute inset-0 -z-10 animate-fade-in"

@@ -60,7 +60,7 @@ interface User {
 
 
 async function BlogPage() {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/list/blogs`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/list/blogs`)
     return (
         <div>
             <div className="flex items-center justify-between">

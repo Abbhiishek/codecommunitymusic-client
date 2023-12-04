@@ -11,7 +11,7 @@ interface Props {
 
 
 export async function generateStaticParams() {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getalluserusername`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/getalluserusername`)
     return data.users.map((user: any) => ({
         params: {
             username: user.username
@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props) {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getalluserusername`)
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/getalluserusername`)
     const user: User = data.users.find((user: any) => user.username === params.username)
     return {
         title: user?.display_name || user?.username,
