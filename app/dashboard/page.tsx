@@ -6,7 +6,7 @@ import Todocard from "@/components/dashboard/cards/Todocard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetSessionUser } from "@/hooks/user/get-current-user";
 import { useRouter } from "next/navigation";
-import { ChatFeatureAnnouchment } from "./chat/page";
+import ChatFeatureAnnouchment from "./banner";
 
 function Dashboard() {
 

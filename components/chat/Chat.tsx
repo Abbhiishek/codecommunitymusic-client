@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {
     Card,
@@ -7,11 +7,11 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
-import { FC } from 'react'
-import ChatHeader from './ChatHeader'
-import ChatInput from './ChatInput'
-import ChatMessages from './ChatMessages'
+} from "@/components/ui/card";
+import { FC } from 'react';
+import ChatHeader from './ChatHeader';
+import ChatInput from './ChatInput';
+import ChatMessages from './ChatMessages';
 
 const Chat: FC = () => {
     return (
